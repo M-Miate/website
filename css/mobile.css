@@ -1,0 +1,7 @@
+@charset 'utf-8';
+
+/* 小于 1400px */
+@media (max-width: 1400px) {}
+
+/* 小于 1200px */
+@media (max-width: 1200px) {}
