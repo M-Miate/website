@@ -169,6 +169,17 @@ span.img-text {
   font-family: 'Pacifico-Regular' !important;
 }
 
+/*简介*/
+.message {
+  background: rgb(0 0 0 / 25%);
+  backdrop-filter: blur(10px);
+  /*margin: 0.5rem;*/
+  padding: 1rem;
+  border-radius: 6px;
+  margin-top: 3.5rem;
+  max-width: 460px;
+  cursor: pointer;
+}
 
 /* 卡片 */
 .cards {
@@ -183,6 +194,70 @@ span.img-text {
 .cards:active {
   transform: scale(0.95);
   transition: 0.5s;
+}
+
+.des {
+  display: flex;
+  justify-content: space-between;
+}
+
+.des-title {
+  margin: 1rem 1rem;
+  line-height: 2rem;
+  margin-right: auto;
+}
+
+span#change {
+  font-family: 'Pacifico-Regular' !important;
+}
+
+.fa-solid.fa-quote-right {
+  align-self: flex-end;
+}
+
+/*社交链接*/
+.social {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  max-width: 460px;
+  height: 42px;
+}
+
+.link i {
+  font-size: 1.45rem;
+  margin: 2px 12px;
+}
+
+/*
+.social .link i:hover {
+  font-size: 2.5rem;
+}
+*/
+
+#link-text {
+  display: none;
+  flex: 1;
+  text-align: right;
+  margin-right: 1rem;
+}
+
+/*页脚样式*/
+footer {
+  text-align: center;
+  height: 46px;
+  backdrop-filter: blur(10px);
+  background: rgb(0 0 0 / 25%);
+}
+
+.power {
+  line-height: 46px;
+  color: #eeeeee;
+  animation: fade;
+  -webkit-animation: fade 0.75s;
+  -moz-animation: fade 0.75s;
+  -o-animation: fade 0.75s;
+  -ms-animation: fade 0.75s;
 }
 
 .noscript {
