@@ -50,7 +50,7 @@ function setBgImg(bg_img) {
 }
 
 let bg_img_preinstall = {
-    "type": "3", // 1:默认背景
+    "type": "1", // 1:默认背景
     "2": "https://api.infinitynewtab.com/v2/get_wallpaper_list?client=pc&source=InfinityLandscape", // Infinity精选风景壁纸
     "3": "https://api.infinitynewtab.com/v2/get_wallpaper_list?client=pc&source=Infinity",  // Infinity精选动漫壁纸
     "4": "https://api.infinitynewtab.com/v2/get_bing_wallpaper"  // 必应壁纸

@@ -39,17 +39,9 @@ body.addEventListener('mousemove', (e) => {
   });
 });
 
-// 屏蔽右键
-document.oncontextmenu = function() {
-  iziToast.show({
-    timeout: 2000,
-    icon: 'fa-solid fa-circle-exclamation',
-    message: '为了浏览体验，已关闭右键'
-  })
-}
 
 // 加载完成后执行
-window.addEventListener('load', function() {
+window.addEventListener('load', () => {
   // 载入动画
   $('#loading-box').attr('class', 'loaded');
   $('#bg').css('cssText', 'transform: scale(1); filter: blur(0px); transform: ease 1.5s;');
@@ -57,7 +49,7 @@ window.addEventListener('load', function() {
   $('#section').css('cssText', 'transform: scale(1) !important; opacity: 1 !important; filter: blur(0px) !important;');
 
   // 用户欢迎
-  setTimeout(function() {
+  setTimeout(() => {
     iziToast.show({
       timeout: 2500,
       icon: false,
@@ -67,9 +59,9 @@ window.addEventListener('load', function() {
   }, 800)
 
   //  //延迟加载音乐播放器
-  //  let element = document.createElement("script");
-  //  element.src = "./js/music.js";
-  //  document.body.appendChild(element);
+   let element = document.createElement("script");
+   element.src = "./js/music.js";
+   document.body.appendChild(element);
 
   //移动端去除鼠标样式
   if (Boolean(window.navigator.userAgent.match(/AppWebKit.*Mobile.*/))) {
@@ -77,15 +69,132 @@ window.addEventListener('load', function() {
   }
 }, false)
 
-setTimeout(function () {
+setTimeout(() => {
   $('#loading-text').html("字体及文件加载可能需要一定时间")
 }, 3000);
 
+/* 一言与音乐切换 */
+$('#open-music').on('click', (event) => {
+  event.stopPropagation();
+  $('#hitokoto').css("display", "none");
+  $('#music').css("display", "flex");
+});
 
-// 监听网页宽度
-window.addEventListener('load', function() {
+// 获取一言
+function getHitokoto() {
+  fetch('https://v1.hitokoto.cn?max_length=24').then(res => res.json()).then(data => {
+    $('#hitokoto-text').html(data.hitokoto)
+    $('#from-text').html(data.from)
+  }).catch(console.error);
+}
+getHitokoto()
 
+// 点击刷新一言
+let times = 0;  // 阈
+$('#hitokoto').click(() => {
+  if (times == 0) {
+    times = 1;
+    let index = setInterval(() => {
+      times--;
+      if (times == 0) {
+        clearInterval(index);
+      }
+    }, 1000)
+    getHitokoto()
+  } else {
+    iziToast.show({
+      timeout: 1000,
+      icon: "fa-solid fa-circle-exclamation",
+      message: '你点太快了'
+    });
+  }
 })
+
+// 获取天气
+//请前往 https://www.mxnzp.com/doc/list 申请 app_id 和 app_secret
+const app_id = 'ljlmkiljpmorvlpw'  // app_id
+const app_secret = 'QQKvq62WmFuPOa4NeYRJ3Joj88u3mERx'  // app_secret
+const key = ''  // key
+
+function getWeather() {
+  fetch(`https://www.mxnzp.com/api/ip/self?app_id=${app_id}&app_secret=${app_secret}`).then(res => res.json()).then(data => {
+    let city = data.data.city
+    setTimeout(() => {
+      fetch(`https://www.mxnzp.com/api/weather/current/${city}?app_id=${app_id}&app_secret=${app_secret}`).then(res => res.json()).then(data => {
+      if (data.code == 1) {
+        let weather = data.data
+        $('#wea_text').html(weather.weather)
+        $('#tem_text').html(weather.temp + "&nbsp;")
+        $('#win_text').html(weather.windDirection)
+        $('#win_speed').html(weather.windPower)
+      } else {
+        $('#wea_text').html('加载失败')
+        $('#tem_text').html("&nbsp;")
+        $('#win_text').html('次数')
+        $('#win_speed').html('超限')
+      }
+      }).catch(console.error)
+    }, 1000)
+  }).catch(console.error);
+}
+getWeather();
+
+// 手动更新天气
+let wea = 0
+$('#upWeather').click(() => {
+  if (wea == 0) {
+    wea = 1;
+    let index = setInterval(() => {
+      wea--;
+      if (wea == 0) {
+        clearInterval(index);
+      }
+    }, 60000)
+    getWeather()
+    iziToast.show({
+      timeout: 2000,
+      icon: 'fa-solid fa-cloud-sun',
+      message: '实时天气已更新'
+    })
+  } else {
+    iziToast.show({
+      timeout: 1000,
+      icon: "fa-solid fa-circle-exclamation",
+      message: '请稍后再更新哦'
+    });
+  }
+})
+
+// 获取时间
+let t = null
+t = setTimeout(time, 1000)
+
+function time() {
+  clearTimeout(t)
+  dt = new Date()
+  let y = dt.getYear() + 1900
+  let mm = dt.getMonth() + 1
+  let d = dt.getDate()
+  let weekday = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+  let day = dt.getDay()
+  let h = dt.getHours()
+  let m = dt.getMinutes()
+  let s = dt.getSeconds()
+
+  if (h < 10) {
+    h = '0' + h
+  }
+  if (m < 10) {
+    m = '0' + m
+  }
+  if (s < 10) {
+    s = '0' + s
+  }
+  $('#time').html(`${y}&nbsp;年&nbsp;${mm}&nbsp;月&nbsp;${d}&nbsp;日&nbsp;<span class='weekday'>${weekday[day]}</span><br><span class='time-text'>${h}:${m}:${s}</span>`)
+  t = setTimeout(time, 1000)
+}
+
+
 
 
 // 新春灯笼 （ 需要时可取消注释 ）

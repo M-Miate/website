@@ -242,6 +242,319 @@ span#change {
   margin-right: 1rem;
 }
 
+/* 一言模块 */
+.col.hitokotos {
+  margin-right: 0.75rem;
+}
+
+.hitokoto {
+  width: 100%;
+  background: rgb(0 0 0 / 25%);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 6px;
+  height: 165px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.hitokoto-all {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.hitokoto-text {
+  font-size: 1.10rem;
+}
+
+#hitokoto_text {
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.hitokoto-from {
+  margin-top: 10px;
+  font-weight: bold;
+  align-self: flex-end;
+  font-size: 1.10rem;
+}
+
+.open-music {
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(0 0 0 / 15%);
+  padding: 4px 0px;
+  font-size: 0.95rem;
+  animation: fade;
+  -webkit-animation: fade 0.5s;
+  -moz-animation: fade 0.5s;
+  -o-animation: fade 0.5s;
+  -ms-animation: fade 0.5s;
+}
+
+.open-music:hover {
+  background: rgb(0 0 0 / 30%);
+}
+
+/* 音乐播放器卡片 */
+.music {
+  width: 100%;
+  background: rgb(0 0 0 / 25%);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 6px;
+  height: 165px;
+  display: none;
+  justify-content: center;
+  flex-direction: column;
+  animation: fade;
+  -webkit-animation: fade 0.3s;
+  -moz-animation: fade 0.3s;
+  -o-animation: fade 0.3s;
+  -ms-animation: fade 0.3s;
+}
+
+.music-all {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+}
+
+.music-button {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.music-control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.music-menu {
+  height: 26px;
+  display: flex;
+  align-items: center;
+}
+
+.fa-solid.fa-play,
+.fa-solid.fa-pause {
+    padding: 4px;
+    font-size: 2.25rem;
+}
+
+#play {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+#play:hover {
+  background: rgb(255 255 255 / 20%);
+}
+
+#last,
+#next {
+    font-size: 1.75rem;
+    border-radius: 6px;
+    padding: 6px 10px;
+}
+
+#last:hover,
+#next:hover {
+    background: rgb(255 255 255 / 20%);
+}
+
+#play:active,
+#last:active,
+#next:active {
+    transform: scale(0.95);
+}
+
+.music-text {
+  margin-top: 6px;
+  font-size: 1.10rem;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  overflow-x: hidden;
+  white-space: nowrap;
+  animation: fade;
+  -webkit-animation: fade 0.5s;
+  -moz-animation: fade 0.5s;
+  -o-animation: fade 0.5s;
+  -ms-animation: fade 0.5s;
+}
+
+#music-open,
+#music-close {
+    background: rgb(255 255 255 / 15%);
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin: 0px 6px;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+#music-open:hover,
+#music-close:hover {
+    background: rgb(255 255 255 / 30%);
+}
+
+.music-volume {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  animation: fade;
+  -webkit-animation: fade 0.5s;
+  -moz-animation: fade 0.5s;
+  -o-animation: fade 0.5s;
+  -ms-animation: fade 0.5s;
+}
+
+#volume-ico {
+  padding-top: 2px;
+  margin-right: 10px;
+}
+
+.music-volume i {
+  font-size: 1.25rem;
+}
+
+input[type=range] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  border-radius: 10px;
+  height: 8px;
+  background: rgb(255 255 255 / 15%);
+}
+
+input[type=range]::-webkit-slider-thumb,
+input[type=range]::-moz-range-thumb {
+    -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track,
+input[type=range]::-moz-range-track {
+    height: 15px;
+    border-radius: 10px;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 15px;
+  width: 15px;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+/* 时间卡片 */
+.col.times {
+  margin-left: 0.75rem;
+}
+
+.time {
+  width: 100%;
+  background: rgb(0 0 0 / 25%);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 165px;
+  font-size: 1.10rem;
+}
+
+span.time-text {
+  font-size: 3.25rem;
+  letter-spacing: 2px;
+  font-family: 'UnidreamLED' !important;
+}
+
+.weather {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* 分割线 */
+.line {
+  margin: 1rem 0.25rem;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+span.line-title {
+  font-size: 1.2rem;
+  margin: 0px 6px;
+}
+
+i.iconfont.icon-link {
+  font-size: 1.2rem;
+}
+
+/* 链接卡片 */
+.link-card {
+  height: 100px;
+  width: 100%;
+  border-radius: 6px;
+  background: rgb(0 0 0 / 25%);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.link-card i {
+  margin-left: 0px;
+  font-size: 1.65rem;
+}
+
+.link-card:hover {
+  background: rgb(0 0 0 / 40%);
+  transition: 0.5s;
+}
+
+span.link-name {
+  font-size: 1.1rem;
+}
+
+.link-card:hover span.link-name {
+  font-size: 1.1rem;
+  transition: 0.5s;
+}
+
+i.iconfont.icon-a-daohangzhiyindingwei-05,
+i.iconfont.icon-z_shangpinheji {
+    font-size: 2rem;
+}
+
 /*页脚样式*/
 footer {
   text-align: center;
@@ -260,9 +573,80 @@ footer {
   -ms-animation: fade 0.75s;
 }
 
+/*播放音乐时底栏歌词*/
+#lrc {
+  display: none;
+  line-height: 46px;
+  color: #eeeeee;
+  animation: fade;
+  -webkit-animation: fade 0.75s;
+  -moz-animation: fade 0.75s;
+  -o-animation: fade 0.75s;
+  -ms-animation: fade 0.75s;
+}
+
+.lrc-show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .noscript {
   z-index: 999999;
   font-size: 0.95rem;
   text-align: center;
   margin: 14px 0px;
+}
+
+/*弹窗样式*/
+.iziToast {
+  backdrop-filter: blur(10px) !important;
+}
+
+.iziToast > .iziToast-body .iziToast-title {
+  font-size: 16px !important;
+}
+
+.iziToast-body .iziToast-message {
+  line-height: 18px !important;
+}
+
+.iziToast > .iziToast-body .iziToast-message {
+  margin: 6px 0px 4px 0px !important;
+}
+
+.iziToast:after {
+  box-shadow: none !important;
+}
+
+.iziToast > .iziToast-body .iziToast-texts {
+  margin: 6px 6px !important;
+  display: flex !important;
+  align-items: center;
+}
+
+.iziToast > .iziToast-body i {
+  margin-left: 6px;
+  margin-top: 10px;
+}
+
+.iziToast-message {
+  word-break: break-all !important;
+}
+
+.iziToast > .iziToast-close {
+  background: url(https://cdn.jsdelivr.net/gh/imsyy/file/pic/close.png) no-repeat 50% 50% !important;
+  background-size: 8px !important;
+}
+
+/*滚动条样式*/
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #eeeeee;
 }
