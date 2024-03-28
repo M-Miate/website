@@ -73,6 +73,18 @@ setTimeout(() => {
   $('#loading-text').html("字体及文件加载可能需要一定时间")
 }, 3000);
 
+// 新春灯笼 （ 需要时可取消注释 ）
+// new_element=document.createElement("link");
+// new_element.setAttribute("rel","stylesheet");
+// new_element.setAttribute("type","text/css");
+// new_element.setAttribute("href","./css/lantern.css");
+// document.body.appendChild(new_element);
+
+// new_element=document.createElement("script");
+// new_element.setAttribute("type","text/javascript");
+// new_element.setAttribute("src","./js/lantern.js");
+// document.body.appendChild(new_element);
+
 /* 一言与音乐切换 */
 $('#open-music').on('click', (event) => {
   event.stopPropagation();
@@ -194,20 +206,111 @@ function time() {
   t = setTimeout(time, 1000)
 }
 
+// 链接提示文字
+$('#social').mouseover(() => {
+  $('#social').css({
+    'background': 'rgb(0 0 0 / 25%)',
+    'border-radius': '6px',
+    'backdrop-filter': 'blur(5px)'
+  })
+  $('#link-text').css({
+    'display': 'block'
+  })
+}).mouseout(() => {
+  $('#social').css({
+    'background': 'none',
+    'border-redius': '6px',
+    'backdrop-filter': 'none'
+  })
+  $('#link-text').css({
+    'display': 'none'
+  })
+})
 
+// 循环json配置
+$("#github").mouseover(function () {
+  $("#link-text").html("去 Github 看看");
+}).mouseout(function () {
+  $("#link-text").html("通过这里联系我");
+});
+$("#qq").mouseover(function () {
+  $("#link-text").html("有什么事吗");
+}).mouseout(function () {
+  $("#link-text").html("通过这里联系我");
+});
+$("#email").mouseover(function () {
+  $("#link-text").html("来封 Email");
+}).mouseout(function () {
+  $("#link-text").html("通过这里联系我");
+});
+$("#bilibili").mouseover(function () {
+  $("#link-text").html("来 B 站看看 ~");
+}).mouseout(function () {
+  $("#link-text").html("通过这里联系我");
+});
+$("#telegram").mouseover(function () {
+  $("#link-text").html("你懂的 ~");
+}).mouseout(function () {
+  $("#link-text").html("通过这里联系我");
+});
 
+// 纪念日自动变灰
+let myDate = new Date()
+let mon = myDate.getMonth() + 1
+let date = myDate.getDate()
+let days = ['4.4', '5.12', '7.7', '9.9', '9.18', '12.13']
+for (let day of days) {
+  let d = day.split('.')
+  if (mon == d[0] && date == d[1]) {
+    document.write(
+      '<style>html{-webkit-filter:grayscale(100%);-moz-filter:grayscale(100%);-ms-filter:grayscale(100%);-o-filter:grayscale(100%);filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);_filter:none}</style>'
+    )
+    $('#change').html('Silence&nbsp;in&nbsp;silence')
+    $("#change1").html("今天是中国国家纪念日，全站已切换为黑白模式");
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+          iziToast.show({
+              timeout: 14000,
+              icon: "fa-solid fa-clock",
+              message: '今天是中国国家纪念日'
+          });
+      }, 3800);
+    }, false);
+  }
+}
 
-// 新春灯笼 （ 需要时可取消注释 ）
-// new_element=document.createElement("link");
-// new_element.setAttribute("rel","stylesheet");
-// new_element.setAttribute("type","text/css");
-// new_element.setAttribute("href","./css/lantern.css");
-// document.body.appendChild(new_element);
+// 更多页面切换
+let shoemore = false
+$('#switchmore').on('click', () => {
+  shoemore = !shoemore
+  if (shoemore && $(document).width() >= 990) {
+    $('#container').attr('class', 'container mores')
+    $('#change').html('Oops&nbsp;!')
+    $('#change1').html('精神上，没有上进心的人，是笨蛋!')
+  } else {
+    $('#container').attr('class', 'container');
+    $("#change").html("Hello&nbsp;World&nbsp;!");
+    $("#change1").html("一个建立于 21 世纪的小站，存活于互联网的边缘");
+  }
+})
 
-// new_element=document.createElement("script");
-// new_element.setAttribute("type","text/javascript");
-// new_element.setAttribute("src","./js/lantern.js");
-// document.body.appendChild(new_element);
+// 更多页面关闭按钮
+$('#close').on('click', () => {
+  $('#switchmore').click()
+})
+
+//移动端菜单栏切换
+let switchmenu = false;
+$('#switchmenu').on('click', function () {
+    switchmenu = !switchmenu;
+    if (switchmenu) {
+        $('#row').attr('class', 'row menus');
+        $("#menu").html("<i class='fa-solid fa-xmark'></i>");
+    } else {
+        $('#row').attr('class', 'row');
+        $("#menu").html("<i class='fa-solid fa-bars'></i>");
+    }
+});
 
 //控制台输出
 //console.clear();

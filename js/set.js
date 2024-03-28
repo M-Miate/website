@@ -4,7 +4,8 @@
 
 // 配置
 $(function() {
-  let url = '../config/setting.json'
+  // let url = '../config/setting.json'
+  let url = 'https://localhost:443'
 
   $.getJSON(url, function(data) {
     // 页头数据
@@ -26,8 +27,7 @@ $(function() {
     $('#github').attr('href', "https://github.com/" + data.github);
     $('#qq').attr('href', "https://wpa.qq.com/msgrd?v=3&uin=" + data.qq + "&site=qq&menu=yes");
     $('#email').attr('href', "mailto:" + data.email);
-    // $('#bilibili').attr('href', "https://space.bilibili.com/" + data.bilibili);
-    // $('#telegram').attr('href', "https://t.me/" + data.telegram);
+    $('#bilibili').attr('href', "https://space.bilibili.com/" + data.bilibili);
 
     /* 快捷链接 */
     $('#link-url-1').attr('href', data.link_1[0]);

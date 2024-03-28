@@ -1,19 +1,21 @@
 {
-    "title": "Miateの主页",
-    "description": "一个展示项目的主页",
-    "keywords": "Miate,金玉白菜,个人博客,个人主页",
-    "author": "Miate",
-    "logo_img": "../img/icon/avatar.jpg",
-    "logo_text_1": "miate",
-    "logo_text_2": "top",
-    "github": "M-Miate",
-    "qq": "1251876172",
-    "email": "1251876172@qq.com",
-    "link_1": [
-        "http://www.miate.top/",
-        "fa-solid fa-flask",
-        "开发中..."
-    ],
-    "Copyright_text": "Miate",
-    "beian": "湘ICP备2022025608号"
+    "config": {
+        "title": "Miateの主页",
+        "description": "一个展示项目的主页",
+        "keywords": "Miate,金玉白菜,个人博客,个人主页",
+        "author": "Miate",
+        "logo_img": "../img/icon/avatar.jpg",
+        "logo_text_1": "miate",
+        "logo_text_2": "top",
+        "github": "M-Miate",
+        "qq": "1251876172",
+        "email": "1251876172@qq.com",
+        "link_1": [
+            "http://www.miate.top/",
+            "fa-solid fa-flask",
+            "开发中..."
+        ],
+        "Copyright_text": "Miate",
+        "beian": "湘ICP备2022025608号"
+    }
 }

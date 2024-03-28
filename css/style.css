@@ -331,7 +331,9 @@ span#change {
 }
 
 .music-button {
+  width: 70%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 6px;
 }
@@ -554,6 +556,372 @@ i.iconfont.icon-a-daohangzhiyindingwei-05,
 i.iconfont.icon-z_shangpinheji {
     font-size: 2rem;
 }
+
+/* 更多页面 */
+.more {
+  display: none !important;
+  width: 46%;
+  z-index: 999;
+  position: fixed;
+  height: 82%;
+  right: 4%;
+  background: rgb(0 0 0 / 25%);
+  backdrop-filter: blur(10px);
+  top: 7%;
+  border-radius: 6px;
+  padding: 30px;
+}
+
+.mores .more {
+  display: flex !important;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  animation: fade;
+  -webkit-animation: fade 0.3s;
+  -moz-animation: fade 0.3s;
+  -o-animation: fade 0.3s;
+  -ms-animation: fade 0.3s;
+}
+
+.mores .col.right {
+  display: none;
+}
+
+/*其他链接*/
+.mores .link-card {
+  height: 48px !important;
+}
+
+/* 关闭按钮 */
+.close {
+  display: none;
+  left: auto;
+  top: 4px;
+  right: 8px;
+  font-size: 1.45rem;
+}
+
+.close:hover {
+  transform: scale(1.2);
+}
+
+/* 时间胶囊 */
+.progress {
+  width: 100%;
+  height: 20px;
+  align-items: center;
+  background: rgb(0 0 0 / 0%) !important;
+  backdrop-filter: blur(5px);
+}
+
+.progress-bar {
+  font-family: 'UnidreamLED' !important;
+  background-color: #efefef !important;
+  color: rgb(86 77 89) !important;
+  font-size: 0.95rem;
+  height: 20px;
+}
+
+.date {
+  width: 100%;
+}
+
+.date-text {
+  margin: 1rem 0rem 0.5rem 0rem;
+}
+
+/* 设置 */
+.box {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1996;
+  background-color: rgba(0, 0, 0, .5);
+  backdrop-filter: blur(20px);
+  animation: fade 0.3s;
+}
+
+.box-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  height: 80%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  z-index: 1997;
+  background: rgb(255 255 255 / 40%);
+  border-radius: 6px;
+  animation: fade .3s;
+  -webkit-animation: fade .3s;
+  padding: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.box-left {
+  flex: 0 44%;
+  min-width: 400px;
+}
+
+#accordion {
+  min-width: 360px;
+  margin-right: 40px;
+  margin-top: 20px;
+  margin-left: 14px;
+  border-radius: 8px;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 7%), 0 1px 5px 0 rgb(0 0 0 / 10%);
+}
+
+.accordion-item {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.accordion-item:first-of-type .accordion-button {
+  border-radius: 8px;
+}
+
+.accordion-button {
+  color: white !important;
+  background-color: transparent;
+  transition: .3s;
+}
+
+.accordion-button:focus {
+  border-color: #ffffff26 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 8px;
+  transition: .3s;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #ffffff26;
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  font-weight: bold;
+  transition: .3s;
+}
+
+.accordion-button::after {
+  border-radius: 8px;
+  background-image: none !important;
+}
+
+.accordion-body {
+  padding: 1rem 0rem !important;
+  background-color: #ffffff10;
+}
+
+.closebox {
+  left: auto;
+  top: 10px;
+  right: 16px;
+  font-size: 1.5rem;
+}
+
+.closebox:hover {
+  transform: scale(1.2);
+}
+
+i.iconfont.icon-close,
+i.iconfont.icon-github1 {
+  font-size: 1.45rem;
+}
+
+/* 个性设置 */
+.set {
+  display: flex;
+  flex-direction: column;
+  padding: 0rem 1.5rem;
+}
+
+.btn-group,
+.btn-group-vertical {
+  margin-top: 10px;
+}
+
+.btn-outline-primary {
+  color: #eeeeee !important;
+  border-color: #ffffff26 !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: #ffffff26 !important;
+  border-color: #eeeeee !important;
+}
+
+.btn-check:focus + .btn,
+.btn:focus {
+  box-shadow: none !important;
+}
+
+.btn-check:active + .btn-outline-primary,
+.btn-check:checked + .btn-outline-primary,
+.btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show,
+.btn-outline-primary:active {
+    background-color: #ffffff26 !important;
+    border-color: #eeeeee !important;
+}
+
+#wallpaper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.form-radio {
+  flex: 1 1 0%;
+  width: 31.3%;
+  min-width: 31.3%;
+  max-width: 31.3%;
+  text-align: center;
+  margin: 1%;
+}
+
+input[type="radio"] + label {
+  padding: 6px 10px;
+  background: #ffffff26;
+  border-radius: 8px;
+  transition: 0.3s;
+  border: 2px solid transparent;
+  width: 100%;
+}
+
+input[type="radio"]:checked + label {
+  background: #ffffff06;
+  border: 2px solid #eeeeee;
+}
+
+/*更新日志*/
+.upnote {
+  display: flex;
+  flex-direction: column;
+  padding: 0rem 1.5rem;
+  height: 156px;
+  overflow-y: auto;
+}
+
+.uptext {
+  line-height: 32px;
+}
+
+/*Aplayer*/
+.box-right {
+  flex: 0 54%;
+  max-width: 54%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.aplayer {
+  background: transparent !important;
+  width: 100%;
+  border-radius: 6px !important;
+  margin-right: 18px;
+  font-family: 'HarmonyOS_Regular', sans-serif !important;
+}
+
+.aplayer.aplayer-withlrc .aplayer-pic {
+  display: none;
+}
+
+.aplayer.aplayer-withlrc .aplayer-info {
+  margin-left: 0px !important;
+}
+
+.aplayer.aplayer-withlrc .aplayer-info {
+  background-color: #ffffff26;
+  border-radius: 6px;
+}
+
+
+/*歌曲名称*/
+.aplayer .aplayer-info .aplayer-music .aplayer-title {
+  font-size: 16px !important;
+}
+
+/*音乐列表*/
+.aplayer.aplayer-withlist .aplayer-list {
+  margin-top: 6px;
+}
+
+.aplayer .aplayer-list ol li.aplayer-list-light {
+  background: #ffffff26 !important;
+  border-radius: 6px !important;
+}
+
+.aplayer .aplayer-list ol li:hover {
+  background: #ffffff26 !important;
+  border-radius: 6px !important;
+}
+
+.aplayer .aplayer-list ol li {
+  border-top: 1px solid transparent !important;
+}
+
+.aplayer.aplayer-withlist .aplayer-info {
+  border-bottom: 1px solid transparent !important;
+}
+
+.aplayer-list-cur {
+  background-color: #eeeeee !important;
+}
+
+/*控制面板 - Bug*/
+.aplayer .aplayer-info .aplayer-controller {
+  display: none !important;
+}
+
+/*歌词间距*/
+.aplayer .aplayer-lrc {
+  margin: 4px 0 0px !important;
+  height: 34px !important;
+}
+
+.aplayer .aplayer-lrc {
+  text-align: left !important;
+  margin-left: 5px !important;
+}
+
+/*歌词大小*/
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  font-size: 14.5px !important;
+}
+
+/*全局字体颜色*/
+.aplayer .aplayer-info .aplayer-music .aplayer-title,
+.aplayer .aplayer-info .aplayer-music .aplayer-author,
+.aplayer .aplayer-lrc p,
+span.aplayer-list-title,
+span.aplayer-list-author,
+span.aplayer-list-index {
+    color: white !important;
+}
+
+/*全局背景*/
+.aplayer .aplayer-lrc:after,
+.aplayer .aplayer-lrc:before {
+    background: transparent !important;
+}
+
+/*Aplayer结束*/
+
+/*移动端页面切换按钮*/
+i.iconfont.icon-bars,
+i.iconfont.icon-times {
+    font-size: 1.25rem;
+}
+
 
 /*页脚样式*/
 footer {
