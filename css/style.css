@@ -150,7 +150,8 @@ main {
 }
 
 .main-img img:hover {
-  transform: rotate(360deg) scale(1.05);
+  /* transform: rotate(360deg) scale(1.05); */
+  transform: scale(1.15);
 }
 
 .img-title {

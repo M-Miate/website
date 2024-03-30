@@ -1,4 +1,5 @@
 let app = require('express')();
+let express = require('express');
 let cors = require('cors')
 let fs = require('fs');
 let http = require('http');
@@ -26,7 +27,27 @@ httpsServer.listen(SSLPORT, function() {
   console.log(`HTTPS Server is running on: https://localhost:${SSLPORT}`);
 })
 
+app.use(express.static('../'));
+
 app.get('/', function(req, res) {
+  if (req.protocol === 'https') {
+    fs.readFile('../index.html', function(err, data) {
+      if (err) {
+        console.log(err);
+       }
+      else{
+        //200：OK
+        // res.writeHead(200,{"Content-Type":"text/html"});
+        res.write(data.toString());
+        res.status(200).send()
+      }
+    })
+  } else {
+    res.status(200).send('Welcome http!')
+  }
+});
+
+app.get('/setting.json', function(req, res) {
   if (req.protocol === 'https') {
     fs.readFile('../config/setting.json', 'utf8', function(err, data){
       if (err) throw err;

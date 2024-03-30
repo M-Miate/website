@@ -77,386 +77,280 @@
 </head>
 
 <body>
-  <!-- 加载动画 -->
-  <div id="loading-box">
-    <div class="loading-left-bg"></div>
-    <div class="loading-right-bg"></div>
-    <div class="spinner-box">
-      <div class="loader">
-        <div class="inner one"></div>
-        <div class="inner two"></div>
-        <div class="inner three"></div>
-      </div>
-      <div class="loading-word">
-        <p class="loading-title" id="loading-title">Miateの主页</p>
-        <span id="loading-text">加载中</span>
+  <div id="app">
+    <!-- 加载动画 -->
+    <div id="loading-box">
+      <div class="loading-left-bg"></div>
+      <div class="loading-right-bg"></div>
+      <div class="spinner-box">
+        <div class="loader">
+          <div class="inner one"></div>
+          <div class="inner two"></div>
+          <div class="inner three"></div>
+        </div>
+        <div class="loading-word">
+          <p class="loading-title" id="loading-title">{{ Config.title }}</p>
+          <span id="loading-text">加载中</span>
+        </div>
       </div>
     </div>
-  </div>
-  <section id="section" class="section">
-    <!-- 背景图片 -->
-    <div class="bg-all">
-      <img id="bg" onerror="this.classList.add('error')">
-      <div class="cover"></div>
-    </div>
-    <!-- 鼠标指针 -->
-    <div id="g-pointer-1"></div>
-    <div id="g-pointer-2"></div>
-    <!-- 主体 -->
-    <main id="main" class="main">
-      <div class="container" id="container">
-        <div class="row" id="row">
-          <div class="col left">
-            <!-- 基本信息 -->
-            <div class="main-left">
-              <!-- logo -->
-              <div class="main-img">
-                <img id="logo-img" src="./img/icon/avatar.jpg" alt="img">
-                <div class="img-title">
-                  <span class="img-title-big" id="logo-text-1">miate</span>
-                  <span class="img-text" id="logo-text-2">.top</span>
-                </div>
-              </div>
-              <!--介绍信息-->
-              <div class="message cards" id="switchmore">
-                <div class="des" id="des">
-                  <i class="fa-solid fa-quote-left"></i>
-                  <div class="des-title">
-                    <span id="change">Hello&nbsp;World&nbsp;!</span>
-                    <br />
-                    <span id="change1">一个建立于 21 世纪的小站，存活于互联网的边缘</span>
+    <section id="section" class="section">
+      <!-- 背景图片 -->
+      <div class="bg-all">
+        <img id="bg" onerror="this.classList.add('error')">
+        <div class="cover"></div>
+      </div>
+      <!-- 鼠标指针 -->
+      <div id="g-pointer-1"></div>
+      <div id="g-pointer-2"></div>
+      <!-- 主体 -->
+      <main id="main" class="main">
+        <div class="container" id="container">
+          <div class="row" id="row">
+            <div class="col left">
+              <!-- 基本信息 -->
+              <div class="main-left">
+                <!-- logo -->
+                <div class="main-img">
+                  <img id="logo-img" :src="Config.logo_img" alt="img">
+                  <div class="img-title">
+                    <span class="img-title-big" id="logo-text-1">{{ Config.logo_text_1 }}</span>
+                    <span class="img-text" id="logo-text-2">.{{ Config.logo_text_2 }}</span>
                   </div>
-                  <i class="fa-solid fa-quote-right"></i>
                 </div>
-              </div>
-              <!--社交链接-->
-              <div class="social" id="social">
-                <a href="https://github.com/M-Miate" class="link" id="github" style="margin-left: 4px" target="_blank">
-                  <i class="fa-brands fa-github"></i>
-                </a>
-                <a href="https://wpa.qq.com/msgrd?v=3&uin=1251876172&site=qq&menu=yes" class="link" id="qq"
-                  target="_blank">
-                  <i class="fa-brands fa-qq"></i>
-                </a>
-                <a href="mailto:1251876172@qq.com" class="link" id="email">
-                  <i class="fa-solid fa-envelope"></i>
-                </a>
-                <a href="https://space.bilibili.com/27287818" class="link" id="bilibili" target="_blank">
-                  <i class="fa-brands fa-bilibili"></i>
-                </a>
-                <!-- <a href="https://www.facebook.com/" class="link" id="facebook" target="_blank">
-                      <i class="fa-brands fa-facebook"></i>
-                  </a> -->
-                <a id="link-text">通过这里联系我</a>
+                <!--介绍信息-->
+                <div class="message cards" id="switchmore">
+                  <div class="des" id="des">
+                    <i class="fa-solid fa-quote-left"></i>
+                    <div class="des-title">
+                      <span id="change">Hello&nbsp;World&nbsp;!</span>
+                      <br />
+                      <span id="change1">{{ Config.change1 }}</span>
+                    </div>
+                    <i class="fa-solid fa-quote-right"></i>
+                  </div>
+                </div>
+                <!--社交链接-->
+                <div class="social" id="social" style="padding-left: 4px">
+                  <a v-for="item in Config.socialList" :href="item.url" class="link" :id="item.id" target="_blank">
+                    <i :class="item.icon"></i>
+                  </a>
+                  <a id="link-text">通过这里联系我</a>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- 第二屏 logo -->
-          <div class="logo cards" style="display: none;" id="changemore">
-            <a class="logo-text" id="logo-text-small">miate.top</a>
-          </div>
-          <div class="col right">
-            <div class="main-right">
-              <!-- 功能区 -->
-              <div class="row rightone" id="rightone">
-                <div class="col hitokotos">
-                  <!-- 一言 -->
-                  <div class="hitokoto cards" id="hitokoto">
-                    <!-- 打开音乐 -->
-                    <div class="open-music fixed-top" id="open-music">
-                      <i class="fa-solid fa-compact-disc"></i>
-                      <span>&nbsp;打开音乐播放器</span>
-                    </div>
-                    <!-- 切换音乐 -->
-                    <div class="hitokoto-all">
-                      <div class="hitokoto-text">
-                        <span id="hitokoto-text">距离，不过是一段空间</span>
+            <!-- 第二屏 logo -->
+            <div class="logo cards" style="display: none;" id="changemore">
+              <a class="logo-text" id="logo-text-small">{{ Config.logo_text_small }}</a>
+            </div>
+            <div class="col right">
+              <div class="main-right">
+                <!-- 功能区 -->
+                <div class="row rightone" id="rightone">
+                  <div class="col hitokotos">
+                    <!-- 一言 -->
+                    <div class="hitokoto cards" id="hitokoto">
+                      <!-- 打开音乐 -->
+                      <div class="open-music fixed-top" id="open-music">
+                        <i class="fa-solid fa-compact-disc"></i>
+                        <span>&nbsp;打开音乐播放器</span>
                       </div>
-                      <div class="hitokoto-from">
-                        -「&nbsp;<span id="from-text">無名</span>&nbsp;」
-                      </div>
-                    </div>
-                  </div>
-                  <!-- 音乐 -->
-                  <div class="music" id="music">
-                    <div class="music-all">
-                      <div class="music-button">
-                        <div id="music-open">音乐列表</div>
-                        <div id="music-close">回到一言</div>
-                      </div>
-                      <div class="music-control">
-                        <i class="fa-solid fa-backward-step" id="last"></i>
-                        <div id="play">
-                          <i class="fa-solid fa-play"></i>
+                      <!-- 切换音乐 -->
+                      <div class="hitokoto-all">
+                        <div class="hitokoto-text">
+                          <span id="hitokoto-text">距离，不过是一段空间</span>
                         </div>
-                        <i class="fa-solid fa-forward-step" id="next"></i>
-                      </div>
-                      <div class="music-menu">
-                        <div class="music-text">
-                          <span id="music-name">未播放音乐</span>
+                        <div class="hitokoto-from">
+                          -「&nbsp;<span id="from-text">無名</span>&nbsp;」
                         </div>
-                        <div class="music-volume" style="display: none;">
-                          <div id="volume-ico">
-                            <i class="fa-solid fa-volume-low"></i>
+                      </div>
+                    </div>
+                    <!-- 音乐 -->
+                    <div class="music" id="music">
+                      <div class="music-all">
+                        <div class="music-button">
+                          <div id="music-open">音乐列表</div>
+                          <div id="music-close">回到一言</div>
+                        </div>
+                        <div class="music-control">
+                          <i class="fa-solid fa-backward-step" id="last"></i>
+                          <div id="play">
+                            <i class="fa-solid fa-play"></i>
                           </div>
-                          <input type="range" min="0" max="1" step="0.01" id="volume">
+                          <i class="fa-solid fa-forward-step" id="next"></i>
+                        </div>
+                        <div class="music-menu">
+                          <div class="music-text">
+                            <span id="music-name">未播放音乐</span>
+                          </div>
+                          <div class="music-volume" style="display: none;">
+                            <div id="volume-ico">
+                              <i class="fa-solid fa-volume-low"></i>
+                            </div>
+                            <input type="range" min="0" max="1" step="0.01" id="volume">
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="col times">
-                  <!-- 时间 -->
-                  <div class="time cards" id="upWeather">
-                    <div class="timeshow" id="time">
-                      2000&nbsp;年&nbsp;0&nbsp;月&nbsp;00&nbsp;日&nbsp;
-                      <span class="weekday">星期一</span>
-                      <br>
-                      <span class="time-text">00:00:00</span>
-                    </div>
-                    <div class="weather">
-                      <span id="city_text">天气</span>&nbsp;
-                      <span id="wea_text">加载中</span>&nbsp;
-                      <span id="tem_text"></span>
-                      <span id="win_text">请稍</span>
-                      <span id="win_speed">等~</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- 分割线 -->
-              <div class="line">
-                <i class="fa-solid fa-link"></i>
-                <span class="link-text">网站列表</span>
-              </div>
-              <!-- 网站链接 -->
-              <div class="link">
-                <!-- 第一组 -->
-                <div class="row">
-                  <div class="col">
-                    <a id="link-url-1" target="_blank">
-                      <div class="link-card cards">
-                        <i id="link-icon-1" class="fa-solid fa-flask"></i>
-                        <span class="link-name" id="link-name-1">敬请期待~</span>
+                  <div class="col times">
+                    <!-- 时间 -->
+                    <div class="time cards" id="upWeather">
+                      <div class="timeshow" id="time">
+                        2000&nbsp;年&nbsp;0&nbsp;月&nbsp;00&nbsp;日&nbsp;
+                        <span class="weekday">星期一</span>
+                        <br>
+                        <span class="time-text">00:00:00</span>
                       </div>
-                    </a>
+                      <div class="weather">
+                        <span id="city_text">天气</span>&nbsp;
+                        <span id="wea_text">加载中</span>&nbsp;
+                        <span id="tem_text"></span>
+                        <span id="win_text">请稍</span>
+                        <span id="win_speed">等~</span>
+                      </div>
+                    </div>
                   </div>
-                  <!-- <div class="col 2">
-                        <a id="link-url-2" href="https://tongji.baidu.com/" target="_blank">
-                            <div class="link-card cards">
-                                <i id="link-icon-2" class="fa-solid fa-cloud"></i>
-                                <span class="link-name" id="link-name-2">统计</span>
-                            </div>
-                        </a>
+                </div>
+                <!-- 分割线 -->
+                <div class="line">
+                  <i class="fa-solid fa-link"></i>
+                  <span class="link-text">网站列表</span>
+                </div>
+                <!-- 网站链接 -->
+                <div class="link">
+                  <!-- 第一组 -->
+                  <div class="row" v-for="list in Config.linkList" :style="list.style">
+                    <div :class="item.class" v-for="item in list.links">
+                      <a :id="item.link_id" :href="item.href" target="_blank">
+                        <div class="link-card cards">
+                          <i :id="item.icon_id" :class="item.icon"></i>
+                          <span class="link-name" :id="item.name_id">{{ item.name }}</span>
+                        </div>
+                      </a>
                     </div>
-                    <div class="col">
-                        <a id="link-url-3" href="https://blog.bywind.xyz/music/" target="_blank">
-                            <div class="link-card cards">
-                                <i id="link-icon-3" class="fa-solid fa-music"></i>
-                                <span class="link-name" id="link-name-3">音乐</span>
-                            </div>
-                        </a>
-                    </div> -->
+                  </div>
                 </div>
-                <!--第二组-->
-                <!-- <div class="row" style="margin-top: 1.5rem;">
-                    <div class="col">
-                        <a id="link-url-4" href="https://www.bywind.xyz/" target="_blank">
-                            <div class="link-card cards">
-                                <i id="link-icon-4" class="fa-solid fa-compass"></i>
-                                <span class="link-name" id="link-name-4">起始页</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col 2">
-                        <a id="link-url-5" href="https://blog.bywind.xyz/stars/" target="_blank">
-                            <div class="link-card cards">
-                                <i id="link-icon-5" class="fa-solid fa-book-bookmark"></i>
-                                <span class="link-name" id="link-name-5">网址集</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a id="link-url-6" href="https://bywind.xyz/" target="_blank">
-                            <div class="link-card cards">
-                                <i id="link-icon-6" class="fa-solid fa-flask"></i>
-                                <span class="link-name" id="link-name-6">实验室</span>
-                            </div>
-                        </a>
-                    </div>
-                  </div> -->
               </div>
             </div>
           </div>
-        </div>
-        <!-- 展开菜单按钮 -->
-        <div class="menu" id="switchmenu">
-          <a class="menu-button cards" id="menu">
-            <i class="fa-solid fa-bars"></i>
-          </a>
-        </div>
-        <!-- 更多内容 -->
-        <div class="more" id="more">
-          <!-- 关闭按钮 -->
-          <div class="close fixed-top" id="close">
-            <i class="fa-solid fa-circle-xmark"></i>
+          <!-- 展开菜单按钮 -->
+          <div class="menu" id="switchmenu">
+            <a class="menu-button cards" id="menu">
+              <i class="fa-solid fa-bars"></i>
+            </a>
           </div>
-          <div class="line" style="margin-top: 1rem;">
-            <i class="fa-solid fa-angle-left"></i>
-            <span class="line-text">时间胶囊</span>
-            <i class="fa-solid fa-angle-right"></i>
-          </div>
-          <div class="date" id="date">
-            <div class="item" id="dayProgress">
-              <div class="date-text" style="margin-top: 0rem;">今日已经度过了&nbsp;<span></span>&nbsp;小时
-              </div>
-              <div class="progress">
-                <div class="progress-bar"></div>
-              </div>
-            </div>
-            <div class="item" id="weekProgress">
-              <div class="date-text">本周已经度过了&nbsp;<span></span>&nbsp;天</div>
-              <div class="progress">
-                <div class="progress-bar"></div>
-              </div>
-            </div>
-            <div class="item" id="monthProgress">
-              <div class="date-text">本月已经度过了&nbsp;<span></span>&nbsp;天</div>
-              <div class="progress">
-                <div class="progress-bar"></div>
-              </div>
-            </div>
-            <div class="item" id="yearProgress">
-              <div class="date-text">今年已经度过了&nbsp;<span></span>&nbsp;个月</div>
-              <div class="progress">
-                <div class="progress-bar"></div>
-              </div>
-            </div>
-          </div>
-          <div class="line">
-            <i class="fa-solid fa-angle-left"></i>
-            <span class="line-text">杂七杂八</span>
-            <i class="fa-solid fa-angle-right"></i>
-          </div>
-          <!--网站链接-->
-          <div class="row">
-            <div class="col">
-              <a href="#" target="_blank">
-                <div class="link-card cards">
-                  <span class="link-name">站点监测</span>
-                </div>
-              </a>
-            </div>
-            <div class="col 2">
-              <a href="#" target="_blank">
-                <div class="link-card cards">
-                  <span class="link-name">播放器</span>
-                </div>
-              </a>
-            </div>
-            <div class="col">
-              <a href="#" target="_blank">
-                <div class="link-card cards">
-                  <span class="link-name">编辑器</span>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="row" style="margin-top: 1.5rem;">
-            <div class="col">
-              <a href="#" target="_blank">
-                <div class="link-card cards">
-                  <span class="link-name">时光相册</span>
-                </div>
-              </a>
-            </div>
-            <div class="col 2">
-              <a href="#" target="_blank">
-                <div class="link-card cards">
-                  <span class="link-name">文件库</span>
-                </div>
-              </a>
-            </div>
-            <div class="col">
-              <a id="openmore">
-                <div class="link-card cards">
-                  <span class="link-name">设置</span>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <!-- 设置页面 -->
-        <div class="box" id="box" style="display: none;">
-          <div class="box-wrapper">
-            <!--关闭按钮-->
-            <div class="closebox fixed-top" id="closemore">
+          <!-- 更多内容 -->
+          <div class="more" id="more">
+            <!-- 关闭按钮 -->
+            <div class="close fixed-top" id="close">
               <i class="fa-solid fa-circle-xmark"></i>
             </div>
-            <!--左侧内容-->
-            <div class="box-left">
-              <div class="img-title">
-                <span class="img-title-big" id="logo-title-other">miate</span>
-                <span class="img-text" id="logo-title-other-small">.top</span><br />
-                <span class="img-text">&nbsp;v&nbsp;1.0</span>
-                <a href="https://github.com/M-Miate" target="_blank">
-                  <i class="fa-brands fa-github"></i>
+            <div class="line" style="margin-top: 1rem;">
+              <i class="fa-solid fa-angle-left"></i>
+              <span class="line-text">时间胶囊</span>
+              <i class="fa-solid fa-angle-right"></i>
+            </div>
+            <div class="date" id="date">
+              <div class="item" id="dayProgress">
+                <div class="date-text" style="margin-top: 0rem;">今日已经度过了&nbsp;<span></span>&nbsp;小时
+                </div>
+                <div class="progress">
+                  <div class="progress-bar"></div>
+                </div>
+              </div>
+              <div class="item" id="weekProgress">
+                <div class="date-text">本周已经度过了&nbsp;<span></span>&nbsp;天</div>
+                <div class="progress">
+                  <div class="progress-bar"></div>
+                </div>
+              </div>
+              <div class="item" id="monthProgress">
+                <div class="date-text">本月已经度过了&nbsp;<span></span>&nbsp;天</div>
+                <div class="progress">
+                  <div class="progress-bar"></div>
+                </div>
+              </div>
+              <div class="item" id="yearProgress">
+                <div class="date-text">今年已经度过了&nbsp;<span></span>&nbsp;个月</div>
+                <div class="progress">
+                  <div class="progress-bar"></div>
+                </div>
+              </div>
+            </div>
+            <div class="line">
+              <i class="fa-solid fa-angle-left"></i>
+              <span class="line-text">杂七杂八</span>
+              <i class="fa-solid fa-angle-right"></i>
+            </div>
+            <!--网站链接-->
+            <div class="row" v-for="list in Config.twoLinkList" :style="list.style">
+              <div :class="item.class" v-for="item in list.links">
+                <a :href="item.href" :target="item.target">
+                  <div class="link-card cards">
+                    <span class="link-name">{{ item.name }}</span>
+                  </div>
                 </a>
               </div>
-              <!--更多内容-->
-              <div class="accordion" id="accordion">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      壁纸设置
-                    </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                    data-bs-parent="#accordion">
-                    <div class="accordion-body">
-                      <div class="set">
-                        <div class="wallpaper" id="wallpaper">
-                          <div class="form-radio">
-                            <input type="radio" class="set-wallpaper" style="display: none;" id="radio1" value="1"
-                              name="wallpaper-type">
-                            <label for="radio1">默认壁纸</label>
-                          </div>
-                          <div class="form-radio">
-                            <input type="radio" class="set-wallpaper" style="display: none;" id="radio2" value="2"
-                              name="wallpaper-type">
-                            <label for="radio2" id="wallpaper_text1">每日一图</label>
-                          </div>
-                          <div class="form-radio">
-                            <input type="radio" class="set-wallpaper" style="display: none;" id="radio3" value="3"
-                              name="wallpaper-type">
-                            <label for="radio3" id="wallpaper_text2">随机风景</label>
-                          </div>
-                          <div class="form-radio">
-                            <input type="radio" class="set-wallpaper" style="display: none;" id="radio4" value="4"
-                              name="wallpaper-type">
-                            <label for="radio4" id="wallpaper_text3">随机动漫</label>
+            </div>
+          </div>
+          <!-- 设置页面 -->
+          <div class="box" id="box" style="display: none;">
+            <div class="box-wrapper">
+              <!--关闭按钮-->
+              <div class="closebox fixed-top" id="closemore">
+                <i class="fa-solid fa-circle-xmark"></i>
+              </div>
+              <!--左侧内容-->
+              <div class="box-left">
+                <div class="img-title">
+                  <span class="img-title-big" id="logo-title-other">{{ Config.logo_text_1 }}</span>
+                  <span class="img-text" id="logo-title-other-small">.{{ Config.logo_text_2 }}</span><br />
+                  <span class="img-text">&nbsp;v&nbsp;{{ Config.version }}</span>
+                  <a :href="Config.github" target="_blank">
+                    <i class="fa-brands fa-github"></i>
+                  </a>
+                </div>
+                <!--更多内容-->
+                <div class="accordion" id="accordion">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        壁纸设置
+                      </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                      data-bs-parent="#accordion">
+                      <div class="accordion-body">
+                        <div class="set">
+                          <div class="wallpaper" id="wallpaper">
+                            <div class="form-radio" v-for="item in Config.wallpapers">
+                              <input type="radio" class="set-wallpaper" style="display: none;" :id="item.id"
+                                :value="item.value" name="wallpaper-type">
+                              <label :for="item.for">{{ item.text }}</label>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <!--更新日志-->
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      更新日志
-                    </button>
-                  </h2>
-                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                    data-bs-parent="#accordion">
-                    <div class="accordion-body">
-                      <div class="upnote">
-                        <!-- <span class="uptext">
-                          <i class="fa-solid fa-circle-plus"></i>&nbsp;音乐歌单支持快速自定义
-                        </span> -->
+                  <!--更新日志-->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        更新日志
+                      </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                      data-bs-parent="#accordion">
+                      <div class="accordion-body">
+                        <div class="upnote">
+                          <span class="uptext" v-for="item in Config.uptexts">
+                            <i class="fa-solid fa-circle-plus"></i>&nbsp;{{ item.uptext }}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -465,30 +359,31 @@
             </div>
           </div>
         </div>
+      </main>
+      <!-- Aplayer -->
+      <div class="box-right">
+        <div id="aplayer">
+          <span>音乐播放器加载失败</span>
+        </div>
       </div>
-    </main>
-    <!-- Aplayer -->
-    <div class="box-right">
-      <div id="aplayer">
-        <span>音乐播放器加载失败</span>
-      </div>
-    </div>
-    <!-- 版权信息 -->
-    <footer id="footer" class="fixed-bottom footer">
-      <div class="power">
-        <span id="power">Copyright&nbsp;&copy;
-          <script>
-            document.write(new Date().getFullYear());
-          </script>
-          <a href="https://www.miate.top" id="power-text">Miate</a>
-        </span>
-        <!-- 备案 -->
-        <a href="https://beian.miit.gov.cn" target="_blank">&amp;&nbsp;湘ICP备2022025608号</a>
-      </div>
-      <!-- 歌词显示 -->
-      <div id="lrc"></div>
-    </footer>
-  </section>
+      <!-- 版权信息 -->
+      <footer id="footer" class="fixed-bottom footer">
+        <div class="power">
+          <span id="power">Copyright&nbsp;&copy;
+            <script>
+              document.write(new Date().getFullYear());
+            </script>
+            <a :href="Config.myWeb" id="power-text">{{ Config.Copyright_text }}</a>
+          </span>
+          <!-- 备案 -->
+          <a href="https://beian.miit.gov.cn" target="_blank">&amp;&nbsp;{{ Config.beian }}</a>
+        </div>
+        <!-- 歌词显示 -->
+        <div id="lrc"></div>
+      </footer>
+    </section>
+  </div>
+
   <!-- 注册一个Service Worker 需要 https sw.js -->
   <script>
     if ("serviceWorker" in navigator) {
@@ -508,6 +403,34 @@
   <script type="text/javascript" src="./js/time.js"></script>
   <script type="text/javascript"
     src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-y/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="./js/vue/vue.min.js"></script>
+
 </body>
+<script type="text/javascript">
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      Config: {}
+    },
+    created() {
+      let url = './config/setting.json'
+      $.getJSON(url, (data) => {
+        this.Config = data
+        if (JSON.parse(localStorage.getItem('config')) != this.Config) {
+          localStorage.setItem('config', JSON.stringify(this.Config))
+        }
+        // 页头数据
+        $('title').text(data.title);
+        $('#loading-title').text(data.title);
+        $('meta[name="description"]').attr('content', data.description);
+        $('meta[name="keywords"]').attr('content', data.keywords);
+        $('meta[name="author"]').attr('content', data.author);
+      })
+    },
+    methods: {
+
+    }
+  })
+</script>
 
 </html>
