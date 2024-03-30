@@ -6,11 +6,12 @@
 
   author: Miate
 */
-let Config = JSON.parse(localStorage.getItem('config'));
 
 $(document).ready(function () {
+  let Config = JSON.parse(localStorage.getItem('config'));
+
   let server = Config.music.musicServer;  // netease: 网易云音乐; tencent: QQ音乐; kugou: 酷狗音乐; xiami: 虾米; kuwo: 酷我
-  let type = Config.music.musicType;  // song: 单曲; playlist: 歌单; album: 唱片
+  let type = Config.music.musicPlaylist;  // song: 单曲; playlist: 歌单; album: 唱片
   let id = Config.music.musicPlaylist;  // 封面 ID / 单曲 ID / 歌单 ID
 
   $.ajax({

@@ -81,6 +81,15 @@ $(document).ready(function () {
       })
     }, 800)
 
+    // 获取一言
+    function getHitokoto() {
+      fetch(`${Config.hitokoto.hitokotoUrl}`).then(res => res.json()).then(data => {
+        $('#hitokoto-text').html(data.hitokoto)
+        $('#from-text').html(data.from)
+      }).catch(console.error);
+    }
+    getHitokoto()
+
     //  //延迟加载音乐播放器
     let element = document.createElement("script");
     element.src = "./js/music.js";
@@ -114,15 +123,6 @@ $(document).ready(function () {
     $('#hitokoto').css("display", "none");
     $('#music').css("display", "flex");
   });
-
-  // 获取一言
-  function getHitokoto() {
-    fetch(`${Config.hitokoto.hitokotoUrl}`).then(res => res.json()).then(data => {
-      $('#hitokoto-text').html(data.hitokoto)
-      $('#from-text').html(data.from)
-    }).catch(console.error);
-  }
-  getHitokoto()
 
   // 点击刷新一言
   let times = 0;  // 阈
