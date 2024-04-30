@@ -669,6 +669,12 @@ i.iconfont.icon-z_shangpinheji {
   min-width: 400px;
 }
 
+.box-left-music {
+  flex: 1;
+  min-width: 400px;
+  margin-top: 10px;
+}
+
 #accordion {
   min-width: 360px;
   margin-right: 40px;

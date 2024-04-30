@@ -11,11 +11,33 @@ $(document).ready(function () {
   let Config = JSON.parse(localStorage.getItem('config'));
 
   let server = Config.music.musicServer;  // netease: 网易云音乐; tencent: QQ音乐; kugou: 酷狗音乐; xiami: 虾米; kuwo: 酷我
-  let type = Config.music.musicPlaylist;  // song: 单曲; playlist: 歌单; album: 唱片
+  let type = Config.music.musicType;  // song: 单曲; playlist: 歌单; album: 唱片
   let id = Config.music.musicPlaylist;  // 封面 ID / 单曲 ID / 歌单 ID
 
+
+
+  /* 打开音乐列表 */
+  $('#music-open').on('click', () => {
+    if ($(document).width() >= 990) {
+      $('#box-music').css("display", "block");
+      $('#row').css("display", "none");
+      $('#more').css("cssText", "display:none !important");
+    }
+  });
+
+  // 关闭音乐列表弹窗页面
+  $('#closemore-music').on('click', () => {
+    $('#box-music').css('display', 'none')
+    $('#row').css('display', 'flex')
+    $('#more').css('display', 'flex')
+  })
+
+  let main = document.getElementById('main');
+  // 音乐列表高度
+  const listHeight = main.offsetHeight * 0.8 - 200
+
   $.ajax({
-    url: `https://api.wuenci.com/meting/api/?server=${server}&type=${type}&id=${id}`,
+    url: `https://api-meting.imsyy.top/api?server=${server}&type=${type}&id=${id}`,
     type: 'GET',
     dataType: 'json',
     success: function (data) {
@@ -23,7 +45,7 @@ $(document).ready(function () {
         container: document.getElementById('aplayer'),
         order: 'random',  // 播放模式：list 列表模式， random 随机播放
         preload: 'auto',  // 自动预加载歌曲
-        listMaxHeight: '336px',
+        listMaxHeight: `${listHeight}px`,
         volume: '0.5',  // 默认音量
         mutex: true,  // 阻止多个播放器同时播放
         lrcType: 3,
@@ -104,15 +126,6 @@ $(document).ready(function () {
           ap.toggle();
         }
       }
-
-      /* 打开音乐列表 */
-      $('#music-open').on('click', () => {
-        if ($(document).width() >= 990) {
-          $('#box').css("display", "block");
-          $('#row').css("display", "none");
-          $('#more').css("cssText", "display:none !important");
-        }
-      });
 
       //音量调节
       $("#volume").on('input propertychange touchend', () => {

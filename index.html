@@ -49,7 +49,7 @@
   <!-- <script src="./js/Meting.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
   <!-- IE Out -->
   <script>
-    if ( /*@cc_on!@*/ false || (!!window.MSInputMethodContext && !!document.documentMode)) {
+    if ( /*@cc_on!@*/ (!!window.MSInputMethodContext && !!document.documentMode)) {
       window.location.href = "/upgrade-your-browser/index.html?referrer=" + encodeURIComponent(window.location.href);
     }
 
@@ -187,7 +187,7 @@
                             <div id="volume-ico">
                               <i class="fa-solid fa-volume-low"></i>
                             </div>
-                            <input type="range" min="0" max="1" step="0.01" id="volume">
+                            <input type="range" min="0" max="1" step="0.01" value="0.5" id="volume">
                           </div>
                         </div>
                       </div>
@@ -358,14 +358,22 @@
               </div>
             </div>
           </div>
-        </div>
+          <!-- 音乐列表 -->
+          <div class="box" id="box-music" style="display: none;">
+            <div class="box-wrapper">
+              <!--关闭按钮-->
+              <div class="closebox fixed-top" id="closemore-music">
+                <i class="fa-solid fa-circle-xmark"></i>
+              </div>
+              <!--左侧内容-->
+              <div class="box-left-music" id="box-music-box">
+                <!-- Aplayer -->
+                <div id="aplayer" :data-id="music.musicPlaylist" :data-server="music.musicServer"
+                  :data-type="music.musicType"></div>
+              </div>
+            </div>
+          </div>
       </main>
-      <!-- Aplayer -->
-      <div class="box-right">
-        <div id="aplayer">
-          <span>音乐播放器加载失败</span>
-        </div>
-      </div>
       <!-- 版权信息 -->
       <footer id="footer" class="fixed-bottom footer">
         <div class="power">
@@ -410,13 +418,14 @@
   var vm = new Vue({
     el: '#app',
     data: {
-      Config: {}
+      Config: {},
+      music: {}
     },
     created() {
       let url = './config/setting.json'
       $.getJSON(url, (data) => {
         this.Config = data
-        if (JSON.parse(localStorage.getItem('config')) != this.Config) {
+        if (JSON.parse(localStorage.getItem('config')) !== this.Config) {
           localStorage.setItem('config', JSON.stringify(this.Config))
         }
         // 页头数据
@@ -425,6 +434,13 @@
         $('meta[name="description"]').attr('content', data.description);
         $('meta[name="keywords"]').attr('content', data.keywords);
         $('meta[name="author"]').attr('content', data.author);
+
+        // 音乐播放器
+        this.music.server = this.Config.music.musicServer
+        this.music.type = this.Config.music.musicType
+        this.music.playlist = this.Config.music.musicPlaylist
+        this.music.autoplay = this.Config.music.musicAutoplay
+        this.music.loop = this.Config.music.musicLoop
       })
     },
     methods: {

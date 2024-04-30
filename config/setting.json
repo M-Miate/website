@@ -22,7 +22,9 @@
     "music": {
         "musicServer": "netease",
         "musicType": "playlist",
-        "musicPlaylist": "963905505"
+        "musicPlaylist": "963905505",
+        "musicAutoplay": "false",
+        "musicLoop": "all"
     },
     "version": "1.1",
     "Copyright_text": "Miate",

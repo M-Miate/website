@@ -62,6 +62,14 @@ $(document).ready(function () {
     });
   });
 
+  // 获取一言
+  function getHitokoto() {
+    fetch(`${Config.hitokoto.hitokotoUrl}`).then(res => res.json()).then(data => {
+      $('#hitokoto-text').html(data.hitokoto)
+      $('#from-text').html(data.from)
+    }).catch(console.error);
+  }
+
 
   // 加载完成后执行
   window.addEventListener('load', () => {
@@ -81,13 +89,6 @@ $(document).ready(function () {
       })
     }, 800)
 
-    // 获取一言
-    function getHitokoto() {
-      fetch(`${Config.hitokoto.hitokotoUrl}`).then(res => res.json()).then(data => {
-        $('#hitokoto-text').html(data.hitokoto)
-        $('#from-text').html(data.from)
-      }).catch(console.error);
-    }
     getHitokoto()
 
     //  //延迟加载音乐播放器
@@ -298,6 +299,14 @@ $(document).ready(function () {
     }
   })
 
+  //更多弹窗页面
+  $('#openmore').on('click', function () {
+    $('#box').css("display", "block");
+    $('#row').css("display", "none");
+    $('#more').css("cssText", "display:none !important");
+  });
+
+
   // 更多页面关闭按钮
   $('#close').on('click', () => {
     $('#switchmore').click()
@@ -322,6 +331,59 @@ $(document).ready(function () {
     $('#row').css('display', 'flex')
     $('#more').css('display', 'flex')
   })
+
+  // 监听网页宽度
+  window.addEventListener('load', () => {
+    window.addEventListener('resize', () => {
+      // 关闭移动端样式
+      if (window.innerWidth >= 600) {
+        $('#row').attr('class', 'row');
+        $("#menu").html("<i class='fa-solid fa-bars'></i>");
+        // 移除移动端切换功能区
+        $('#rightone').attr('class', 'row rightone')
+      }
+
+      if (window.innerWidth <= 990) {
+        // 移动端隐藏更多页面
+        $('#container').attr('class', 'container');
+        $("#change").html("Hello&nbsp;World&nbsp;!");
+        $("#change1").html(Config.change1);
+
+        //移动端隐藏弹窗页面
+        $('#box').css("display", "none");
+        $('#row').css("display", "flex");
+        $('#more').css("display", "flex");
+      }
+    })
+  })
+
+  //移动端切换功能区
+  let changemore = false;
+  $('#changemore').on('click', function () {
+    changemore = !changemore;
+    if (changemore) {
+      $('#rightone').attr('class', 'row menus mobile');
+    } else {
+      $('#rightone').attr('class', 'row menus');
+    }
+  });
+
+  //更多页面显示关闭按钮
+  $("#more").hover(function () {
+    $('#close').css("display", "block");
+  }, function () {
+    $('#close').css("display", "none");
+  })
+
+  // 屏蔽右键
+  document.oncontextmenu = () => {
+    iziToast.show({
+      timeout: 2000,
+      icon: "fa-solid fa-circle-exclamation",
+      message: '为了浏览体验，本站禁用右键'
+    })
+    return false
+  }
 
   //控制台输出
   //console.clear();
