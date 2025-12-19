@@ -1,5 +1,5 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+# 安全部署工作流 - 支持加密配置和 JS 配置文件
+name: Deploy with encrypted config
 
 on:
   # Runs on pushes targeting the default branch
@@ -16,30 +16,108 @@ permissions:
   id-token: write
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  # Build job - 处理加密配置
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install crypto
+
+      - name: Generate encryption key (if not exists)
+        id: encryption
+        run: |
+          # 检查是否已有加密密钥
+          if [ -n "${{ secrets.CONFIG_ENCRYPTION_KEY }}" ]; then
+            echo "Using existing encryption key from secrets"
+            echo "encryption_key=${{ secrets.CONFIG_ENCRYPTION_KEY }}" >> $GITHUB_OUTPUT
+          else
+            echo "Generating new encryption key"
+            NEW_KEY=$(node -e "console.log(require('crypto').randomBytes(32).toString('hex'))")
+            echo "encryption_key=$NEW_KEY" >> $GITHUB_OUTPUT
+            echo "⚠️  请在 GitHub Secrets 中添加 CONFIG_ENCRYPTION_KEY: $NEW_KEY"
+          fi
+
+      - name: Encrypt sensitive config
+        run: |
+          if [ -f "config/setting-template.json" ]; then
+            echo "发现配置模板，进行加密处理..."
+
+            # 生成加密的 JSON 配置文件
+            CONFIG_ENCRYPTION_KEY="${{ steps.encryption.outputs.encryption_key }}" \
+            node scripts/encrypt-config.js encrypt \
+              config/setting-template.json \
+              config/setting.json
+            
+          else
+            echo "⚠️  未找到 config/setting-template.json，跳过加密步骤"
+          fi
+
+      - name: Validate encrypted config
+        run: |
+          # 验证 JSON 配置文件
+          if [ -f "config/setting.json" ]; then
+            echo "验证 JSON 配置文件..."
+            if ! jq empty config/setting.json; then
+              echo "❌ JSON 配置文件格式错误"
+              exit 1
+            fi
+            echo "✅ JSON 配置文件格式验证通过"
+          fi
+
+          # 检查是否至少有一个配置文件存在
+          if [ ! -f "config/setting.json" ]; then
+            echo "❌ 未找到任何配置文件"
+            exit 1
+          fi
+
+          echo "✅ 所有配置文件验证通过"
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-files
+          path: .
+          retention-days: 1
+
+  # Deploy job - 部署到 GitHub Pages
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-files
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
           path: '.'
           cname: miate.top
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      

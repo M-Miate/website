@@ -28,16 +28,6 @@ node scripts/encrypt-config.js encrypt \
   config/setting-template.json \
   config/setting.json
 ```
-
-### 4. 更新工作流
-
-将部署工作流从 `static.yml` 更新为 `deploy-secure.yml`：
-
-```bash
-# 重命名工作流文件
-mv .github/workflows/static.yml .github/workflows/deploy-secure.yml
-```
-
 ## 详细配置步骤
 
 ### 本地开发环境
@@ -125,7 +115,7 @@ location.reload();
 
 ```bash
 # 提交配置模板和更改
-git add config/setting-template.json .github/workflows/deploy-secure.yml
+git add config/setting-template.json .github/workflows/static.yml
 git commit -m "启用安全配置加密"
 git push origin main
 ```
