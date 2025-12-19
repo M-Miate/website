@@ -63,6 +63,31 @@ jobs:
             echo "⚠️  未找到 config/setting-template.json，跳过加密步骤"
           fi
 
+      - name: Inject encryption key for frontend
+        run: |
+          if [ -n "${{ secrets.CONFIG_ENCRYPTION_KEY }}" ]; then
+            echo "🔑 为前端注入加密密钥..."
+            # 创建一个包含加密密钥的 JS 文件
+            cat > js/encryption-key.js << 'EOF'
+            /**
+ * 加密密钥 - 由 GitHub Actions 自动生成
+ * 用于客户端配置文件解密
+ */
+window.CONFIG_ENCRYPTION_KEY = "${{ secrets.CONFIG_ENCRYPTION_KEY }}";
+EOF
+            echo "✅ 加密密钥已注入到前端"
+          else
+            echo "⚠️  未找到加密密钥，前端将使用降级模式"
+            # 创建空文件
+            cat > js/encryption-key.js << 'EOF'
+            /**
+ * 加密密钥 - 由 GitHub Actions 自动生成
+ * 未找到密钥，前端将使用降级模式
+ */
+window.CONFIG_ENCRYPTION_KEY = null;
+EOF
+          fi
+
       - name: Validate encrypted config
         run: |
           # 验证 JSON 配置文件
@@ -78,7 +103,15 @@ jobs:
             exit 1
           fi
 
-          echo "✅ 配置文件验证通过"
+          # 验证加密密钥文件
+          if [ -f "js/encryption-key.js" ]; then
+            echo "✅ 加密密钥文件验证通过"
+          else
+            echo "❌ 未找到加密密钥文件"
+            exit 1
+          fi
+
+          echo "✅ 所有文件验证通过"
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4

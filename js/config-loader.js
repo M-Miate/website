@@ -12,19 +12,31 @@ class SecureConfigLoader {
   }
 
   /**
-   * 从 sessionStorage 获取加密密钥（如果存在）
+   * 从多个源获取加密密钥
    */
   getEncryptionKey() {
-    // 首先尝试从环境变量获取（仅服务端）
+    // 1. 优先使用 GitHub Actions 注入的全局密钥
+    if (typeof window !== 'undefined' && window.CONFIG_ENCRYPTION_KEY) {
+      console.log('🔑 使用 GitHub Actions 注入的加密密钥');
+      return window.CONFIG_ENCRYPTION_KEY;
+    }
+
+    // 2. 尝试从环境变量获取（仅服务端）
     if (typeof process !== 'undefined' && process.env.CONFIG_ENCRYPTION_KEY) {
+      console.log('🔑 使用环境变量加密密钥');
       return process.env.CONFIG_ENCRYPTION_KEY;
     }
 
-    // 客户端从 sessionStorage 获取（临时存储）
+    // 3. 从 sessionStorage 获取（用户手动设置）
     if (typeof sessionStorage !== 'undefined') {
-      return sessionStorage.getItem('config_encryption_key');
+      const sessionKey = sessionStorage.getItem('config_encryption_key');
+      if (sessionKey) {
+        console.log('🔑 使用 sessionStorage 加密密钥');
+        return sessionKey;
+      }
     }
 
+    console.warn('⚠️ 未找到加密密钥，将使用降级模式');
     return null;
   }
 
