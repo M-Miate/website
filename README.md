@@ -1,4 +1,4 @@
-# MyWebsite
+# website
 个人网站展示
 
 ### Setting.json 配置

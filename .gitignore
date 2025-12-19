@@ -1,2 +1,4 @@
 /.vscode/*
 /node/node_modules/*
+.claude
+.idea
