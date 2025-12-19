@@ -31,54 +31,7 @@ class ConfigEncryptor {
     }
   }
 
-  /**
-   * 生成 JS 配置文件
-   */
-  generateJSConfig(config, outputPath) {
-    try {
-      console.log('📝 生成 JS 配置文件...');
-
-      // 生成 JS 文件内容
-      const jsContent = `/**
- * 网站配置文件 - 自动生成
- * 包含网站基本信息、功能配置、UI设置等
- *
- * generated: ${new Date().toISOString()}
- * author: Miate
- */
-
-// 网站配置数据
-const settingConfig = ${JSON.stringify(config, null, 2)};
-
-// 兼容多种导出方式
-if (typeof module !== 'undefined' && module.exports) {
-  // Node.js 环境
-  module.exports = settingConfig;
-} else if (typeof window !== 'undefined') {
-  // 浏览器环境
-  window.SETTING_CONFIG = settingConfig;
-  // 也支持 CommonJS 风格
-  if (typeof exports !== 'undefined') {
-    exports.settingConfig = settingConfig;
-  }
-} else {
-  // 其他环境
-  this.SETTING_CONFIG = settingConfig;
-}
-
-// 默认导出
-export default settingConfig;
-`;
-
-      fs.writeFileSync(outputPath, jsContent, 'utf8');
-      console.log(`✅ JS 配置文件已生成: ${outputPath}`);
-
-    } catch (error) {
-      console.error('❌ JS 配置文件生成失败:', error.message);
-      throw error;
-    }
-  }
-
+  
   /**
    * 加密配置文件中的敏感字段
    */
@@ -145,14 +98,9 @@ export default settingConfig;
         }
       });
 
-      // 根据输出文件扩展名选择写入方式
-      if (outputPath.endsWith('.js') || outputPath.endsWith('.mjs')) {
-        this.generateJSConfig(encryptedConfig, outputPath);
-      } else {
-        // 写入 JSON 文件
-        fs.writeFileSync(outputPath, JSON.stringify(encryptedConfig, null, 2));
-        console.log(`加密配置已保存到: ${outputPath}`);
-      }
+      // 写入 JSON 文件
+      fs.writeFileSync(outputPath, JSON.stringify(encryptedConfig, null, 2));
+      console.log(`加密配置已保存到: ${outputPath}`);
 
     } catch (error) {
       console.error('加密失败:', error.message);
@@ -310,7 +258,6 @@ if (require.main === module) {
       console.log('');
       console.log('  # 加密配置');
       console.log('  CONFIG_ENCRYPTION_KEY=your_key node scripts/encrypt-config.js encrypt config/setting-template.json config/setting.json');
-      console.log('  CONFIG_ENCRYPTION_KEY=your_key node scripts/encrypt-config.js encrypt config/setting-template.json config/setting.js');
       break;
   }
 }

@@ -18,18 +18,18 @@
   "weather": {
     "app_id": {
       "encrypted": true,
-      "data": "1e8ceba5facf97575b74be97cbb574bd",
-      "iv": "74f295aa58366218b5a4fe94",
-      "authTag": "3bd747ac0af85f50e868c3ce54f25b5b",
+      "data": "cccc3359682cbd803ce76e97237dd343",
+      "iv": "2ddd050007af1929d6b54e9c",
+      "authTag": "752c023a7762ae0c2d9ff4dd298f4722",
       "fieldName": "weather.app_id",
       "algorithm": "AES-GCM",
       "keyLength": 256
     },
     "app_secret": {
       "encrypted": true,
-      "data": "8d42c248fd9e2672e69b8d1d0827babdec04099e8c1ff60331da76ed4ea3cf60",
-      "iv": "18dc927ce1794008aeb92cf0",
-      "authTag": "e572a81ff2435d8cb8d8b4923a043b56",
+      "data": "cd6448676386303381b17b8745169f071470abd8e8a04df74de1b39b7ca8cc84",
+      "iv": "3f1887b79429efc3c1a63276",
+      "authTag": "86dc4f5dc4df2701d0299db62bfffc83",
       "fieldName": "weather.app_secret",
       "algorithm": "AES-GCM",
       "keyLength": 256
@@ -121,6 +121,9 @@
     }
   ],
   "uptexts": [
+    {
+      "uptext": "添加盘搜链接"
+    },
     {
       "uptext": "壁纸更新三个接口"
     },
