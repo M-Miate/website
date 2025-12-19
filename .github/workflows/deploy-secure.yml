@@ -1,4 +1,4 @@
-# 安全部署工作流 - 支持加密配置
+# 安全部署工作流 - 支持加密配置和 JS 配置文件
 name: Deploy with encrypted config
 
 on:
@@ -57,24 +57,53 @@ jobs:
         run: |
           if [ -f "config/setting-template.json" ]; then
             echo "发现配置模板，进行加密处理..."
+
+            # 生成加密的 JSON 配置文件
             CONFIG_ENCRYPTION_KEY="${{ steps.encryption.outputs.encryption_key }}" \
             node scripts/encrypt-config.js encrypt \
               config/setting-template.json \
               config/setting.json
+
+            # 生成加密的 JS 配置文件
+            CONFIG_ENCRYPTION_KEY="${{ steps.encryption.outputs.encryption_key }}" \
+            node scripts/encrypt-config.js encrypt \
+              config/setting-template.json \
+              config/setting.js
+
+            echo "✅ 加密配置文件已生成 (JSON & JS)"
           else
             echo "⚠️  未找到 config/setting-template.json，跳过加密步骤"
           fi
 
       - name: Validate encrypted config
         run: |
+          # 验证 JSON 配置文件
           if [ -f "config/setting.json" ]; then
-            # 验证 JSON 格式
+            echo "验证 JSON 配置文件..."
             if ! jq empty config/setting.json; then
-              echo "❌ 配置文件 JSON 格式错误"
+              echo "❌ JSON 配置文件格式错误"
               exit 1
             fi
-            echo "✅ 配置文件格式验证通过"
+            echo "✅ JSON 配置文件格式验证通过"
           fi
+
+          # 验证 JS 配置文件语法
+          if [ -f "config/setting.js" ]; then
+            echo "验证 JS 配置文件..."
+            if ! node -c config/setting.js; then
+              echo "❌ JS 配置文件语法错误"
+              exit 1
+            fi
+            echo "✅ JS 配置文件语法验证通过"
+          fi
+
+          # 检查是否至少有一个配置文件存在
+          if [ ! -f "config/setting.json" ] && [ ! -f "config/setting.js" ]; then
+            echo "❌ 未找到任何配置文件"
+            exit 1
+          fi
+
+          echo "✅ 所有配置文件验证通过"
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4

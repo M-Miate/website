@@ -15,8 +15,8 @@ $(document).ready(async function () {
     const loader = new SecureConfigLoader();
     Config = await loader.loadConfig('./config/setting.json');
   } catch (error) {
-    // 降级到 localStorage 读取
-    const localConfig = localStorage.getItem('config');
+    // 降级到 sessionStorage 读取
+    const localConfig = sessionStorage.getItem('config');
     if (localConfig) {
       Config = JSON.parse(localConfig);
     } else {

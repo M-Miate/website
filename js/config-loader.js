@@ -12,7 +12,7 @@ class SecureConfigLoader {
   }
 
   /**
-   * 从 localStorage 获取加密密钥（如果存在）
+   * 从 sessionStorage 获取加密密钥（如果存在）
    */
   getEncryptionKey() {
     // 首先尝试从环境变量获取（仅服务端）
@@ -244,15 +244,15 @@ class SecureConfigLoader {
 
       // 计算当前配置的版本哈希
       const currentVersion = await this.calculateConfigHash(rawConfig);
-      const lastVersion = localStorage.getItem(this.versionCacheKey);
+      const lastVersion = sessionStorage.getItem(this.versionCacheKey);
 
       // 检查配置是否有更新
       if (lastVersion && lastVersion === currentVersion) {
         console.log('📋 配置未更新，检查缓存...');
 
         // 配置未更新，检查是否有有效的长期缓存
-        const cachedConfig = localStorage.getItem(this.cacheKey);
-        const cacheTimestamp = localStorage.getItem('config_timestamp');
+        const cachedConfig = sessionStorage.getItem(this.cacheKey);
+        const cacheTimestamp = sessionStorage.getItem('config_timestamp');
 
         if (cachedConfig && cacheTimestamp && (now - parseInt(cacheTimestamp)) < 3600000) { // 1小时长期缓存
           const config = JSON.parse(cachedConfig);
@@ -267,7 +267,7 @@ class SecureConfigLoader {
       } else {
         console.log('🔄 检测到配置更新，重新处理');
         // 更新版本号
-        localStorage.setItem(this.versionCacheKey, currentVersion);
+        sessionStorage.setItem(this.versionCacheKey, currentVersion);
       }
 
       // 处理新加载的配置
@@ -285,12 +285,12 @@ class SecureConfigLoader {
       }
 
       // 更新所有缓存
-      localStorage.setItem(this.cacheKey, JSON.stringify(finalConfig));
-      localStorage.setItem('config_timestamp', now.toString());
+      sessionStorage.setItem(this.cacheKey, JSON.stringify(finalConfig));
+      sessionStorage.setItem('config_timestamp', now.toString());
       sessionStorage.setItem(this.sessionCacheKey, JSON.stringify(finalConfig));
       sessionStorage.setItem('config_session_timestamp', now.toString());
 
-      console.log('💾 配置已缓存到 localStorage 和 sessionStorage');
+      console.log('💾 配置已缓存到 sessionStorage 和 sessionStorage');
       return finalConfig;
 
     } catch (error) {
@@ -305,10 +305,10 @@ class SecureConfigLoader {
         console.log('🔄 使用 sessionStorage 缓存作为备用');
         fallbackConfig = JSON.parse(sessionConfig);
       } else {
-        // 其次使用 localStorage 缓存
-        const localConfig = localStorage.getItem(this.cacheKey);
+        // 其次使用 sessionStorage 缓存
+        const localConfig = sessionStorage.getItem(this.cacheKey);
         if (localConfig) {
-          console.log('🔄 使用 localStorage 缓存作为备用');
+          console.log('🔄 使用 sessionStorage 缓存作为备用');
           fallbackConfig = JSON.parse(localConfig);
         }
       }

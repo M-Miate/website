@@ -46,7 +46,7 @@ git push origin main
 ### 配置驱动架构（关键理解）
 项目采用双重配置加载机制：
 1. **首次加载**: Vue.js 直接从 `./config/setting.json` 读取配置
-2. **缓存机制**: 自动将配置存储到 localStorage，提高后续访问速度
+2. **缓存机制**: 自动将配置存储到 sessionStorage，提高后续访问速度
 3. **自动同步**: 每次页面加载时会检查配置文件与本地缓存是否一致
 
 ```javascript
@@ -54,7 +54,7 @@ git push origin main
 let url = './config/setting.json'
 $.getJSON(url, (data) => {
   this.Config = data
-  localStorage.setItem('config', JSON.stringify(this.Config))
+  sessionStorage.setItem('config', JSON.stringify(this.Config))
 })
 ```
 
@@ -89,7 +89,7 @@ $.getJSON(url, (data) => {
 
 ### 配置修改工作流
 1. **修改配置文件**: 编辑 `/config/setting.json`
-2. **清除本地缓存**: 浏览器开发者工具 → Application → localStorage → 清除 config
+2. **清除本地缓存**: 浏览器开发者工具 → Application → sessionStorage → 清除 config
 3. **刷新页面**: 获取最新配置并自动缓存
 4. **推送到仓库**: 触发自动部署更新线上版本
 
@@ -157,7 +157,7 @@ $.getJSON(url, (data) => {
 ### 配置文件维护
 - 保持 JSON 格式有效性，避免语法错误
 - API 密钥等敏感信息建议使用环境变量（目前配置在文件中）
-- 修改配置后记得清除浏览器 localStorage 缓存测试
+- 修改配置后记得清除浏览器 sessionStorage 缓存测试
 - 配置修改工作流：编辑 → 清除缓存 → 刷新页面 → 部署
 
 ### 扩展开发模式
@@ -168,7 +168,7 @@ $.getJSON(url, (data) => {
 5. 更新 `js/lib/sw.js` 缓存策略（如需要）
 
 ### 调试和测试
-- 使用浏览器开发者工具监控 localStorage 配置加载
+- 使用浏览器开发者工具监控 sessionStorage 配置加载
 - 检查 Service Worker 缓存状态（Application → Service Workers）
 - 移动端测试使用 Chrome DevTools 设备模拟
 - PWA 功能测试：断网状态下验证离线可用性

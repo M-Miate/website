@@ -36,24 +36,6 @@
             "icon": "fa-brands fa-github",
             "id": "Github",
             "text": "去 Github 看看"
-        },
-        {
-            "url": "https://wpa.qq.com/msgrd?v=3&uin=1251876172&site=qq&menu=yes",
-            "icon": "fa-brands fa-qq",
-            "id": "QQ",
-            "text": "去 QQ 看看"
-        },
-        {
-            "url": "mailto:1251876172@qq.com",
-            "icon": "fa-solid fa-envelope",
-            "id": "Email",
-            "text": "来封 Email"
-        },
-        {
-            "url": "https://space.bilibili.com/27287818",
-            "icon": "fa-brands fa-bilibili",
-            "id": "Bilibili",
-            "text": "来 B 站看看 ~"
         }
     ],
     "linkList": [
@@ -62,61 +44,11 @@
                 {
                     "class": "col",
                     "link_id": "link-url-1",
-                    "href": "#",
+                    "href": "http://pansou.miate.top",
                     "icon_id": "link-icon-1",
                     "icon": "fa-solid fa-code",
                     "name_id": "link-name-1",
-                    "name": "开发中"
-                },
-                {
-                    "class": "col 2",
-                    "link_id": "link-url-2",
-                    "href": "#",
-                    "icon_id": "link-icon-2",
-                    "icon": "fa-solid fa-flask",
-                    "name_id": "link-name-2",
-                    "name": "敬请期待~"
-                },
-                {
-                    "class": "col",
-                    "link_id": "link-url-3",
-                    "href": "#",
-                    "icon_id": "link-icon-3",
-                    "icon": "fa-solid fa-flask",
-                    "name_id": "link-name-3",
-                    "name": "敬请期待~"
-                }
-            ],
-            "style": ""
-        },
-        {
-            "links": [
-                {
-                    "class": "col",
-                    "link_id": "link-url-4",
-                    "href": "#",
-                    "icon_id": "link-icon-4",
-                    "icon": "fa-solid fa-flask",
-                    "name_id": "link-name-4",
-                    "name": "敬请期待~"
-                },
-                {
-                    "class": "col 2",
-                    "link_id": "link-url-5",
-                    "href": "#",
-                    "icon_id": "link-icon-5",
-                    "icon": "fa-solid fa-flask",
-                    "name_id": "link-name-5",
-                    "name": "敬请期待~"
-                },
-                {
-                    "class": "col",
-                    "link_id": "link-url-6",
-                    "href": "#",
-                    "icon_id": "link-icon-6",
-                    "icon": "fa-solid fa-flask",
-                    "name_id": "link-name-6",
-                    "name": "敬请期待~"
+                    "name": "盘搜"
                 }
             ],
             "style": "margin-top: 1.5rem;"
@@ -127,39 +59,15 @@
             "links": [
                 {
                     "class": "col",
-                    "href": "#",
+                    "href": "http://pansou.miate.top",
                     "target": "_blank",
-                    "name": "开发中"
-                },
-                {
-                    "class": "col 2",
-                    "href": "#",
-                    "target": "_blank",
-                    "name": "开发中"
-                },
-                {
-                    "class": "col",
-                    "href": "#",
-                    "target": "_blank",
-                    "name": "开发中"
+                    "name": "盘搜"
                 }
             ],
-            "style": ""
+            "style": "margin-top: 1.5rem;"
         },
         {
             "links": [
-                {
-                    "class": "col",
-                    "href": "#",
-                    "target": "_blank",
-                    "name": "开发中"
-                },
-                {
-                    "class": "col 2",
-                    "href": "#",
-                    "target": "_blank",
-                    "name": "开发中"
-                },
                 {
                     "class": "col",
                     "href": "javascript:$('#box').css('display', 'block');$('#row').css('display', 'none');$('#more').css('cssText', 'display: none !important');",
@@ -167,7 +75,7 @@
                     "name": "设置"
                 }
             ],
-            "style": "margin-top: 1.5rem;"
+            "style": ""
         }
     ],
     "wallpapers": [
@@ -197,6 +105,9 @@
         }
     ],
     "uptexts": [
+        {
+            "uptext": "添加盘搜链接"
+        },
         {
             "uptext": "壁纸更新三个接口"
         },
