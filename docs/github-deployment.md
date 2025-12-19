@@ -45,7 +45,7 @@ CONFIG_ENCRYPTION_KEY: 4d9e73d8266266dd02f2d1f80c3c8e37bd9cc84068e6b7ddc810ad51a
 
 **功能：**
 - 自动加密敏感配置
-- 生成 JSON 和 JS 两种格式的配置文件
+- 生成 JSON 的配置文件
 - 验证配置文件格式
 - 部署到 GitHub Pages
 
@@ -57,7 +57,7 @@ CONFIG_ENCRYPTION_KEY: 4d9e73d8266266dd02f2d1f80c3c8e37bd9cc84068e6b7ddc810ad51a
 1. 检出代码
 2. 设置 Node.js 环境
 3. 检查/生成加密密钥
-4. 加密配置文件（JSON & JS）
+4. 加密配置文件（JSON）
 5. 验证文件格式
 6. 部署到 GitHub Pages
 
@@ -82,17 +82,9 @@ CONFIG_ENCRYPTION_KEY: 4d9e73d8266266dd02f2d1f80c3c8e37bd9cc84068e6b7ddc810ad51a
 
 ### 配置文件格式
 
-部署后会生成两个配置文件：
+部署后会生成配置文件：
 
-1. **`config/setting.json`** - JSON 格式
-2. **`config/setting.js`** - JavaScript 模块格式
-
-### 前端使用
-
-项目会自动尝试以下加载顺序：
-
-1. 优先加载 `setting.js`
-2. 失败后降级到 `setting.json`
+**`config/setting.json`**
 
 ## 🛠️ 本地开发
 
@@ -103,7 +95,7 @@ CONFIG_ENCRYPTION_KEY: 4d9e73d8266266dd02f2d1f80c3c8e37bd9cc84068e6b7ddc810ad51a
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 # 加密配置文件
-CONFIG_ENCRYPTION_KEY="your_key" node scripts/encrypt-config.js encrypt config/setting-template.json config/setting.js
+CONFIG_ENCRYPTION_KEY="your_key" node scripts/encrypt-config.js encrypt config/setting-template.json config/setting.json
 ```
 
 ### 测试部署
