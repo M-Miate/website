@@ -8,7 +8,7 @@
   <meta name="referrer" content="no-referrer" />
   <meta http-equiv="Access-Control-Allow-Origin" content="*">
   <!-- 强制 HTTPS -->
-  <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="force-rendering" content="webkit">
@@ -20,13 +20,13 @@
 
   <title>Miateの主页</title>
   <!-- jQuery -->
-  <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-y/jquery/3.5.1/jquery.min.js"></script>
+  <script src="./js/lib/jquery-3.7.1.min.js"></script>
   <!-- HarmonyOS Sans -->
   <!-- https://s1.hdslb.com/bfs/static/jinkela/long/font/regular.css -->
-  <link rel="stylesheet" href="https://s1.hdslb.com/bfs/static/jinkela/long/font/regular.css" />
+  <link rel="stylesheet" href="./css/lib/regular.css" />
   <!-- 引入样式 -->
   <link rel="stylesheet" type="text/css"
-    href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-y/bootstrap/5.1.0/css/bootstrap.min.css">
+    href="./css/lib/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="./css/style.css">
   <link rel="stylesheet" type="text/css" href="./css/mobile.css">
   <link rel="stylesheet" type="text/css" href="./css/loading.css">
@@ -34,19 +34,14 @@
   <link rel="icon" href="./img/icon/192.png">
   <link rel="apple-touch-icon" href="./img/icon/apple-touch-icon.png">
   <!-- Izitoast -->
-  <link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-y/izitoast/1.4.0/css/iziToast.min.css">
-  <script type="text/javascript"
-    src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-y/izitoast/1.4.0/js/iziToast.min.js">
-    </script>
+  <link rel="stylesheet" href="./css/lib/iziToast.min.css">
+  <script type="text/javascript" src="./js/lib/iziToast.min.js"></script>
   <!-- FontAwesome -->
-  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+  <link rel="stylesheet" href="./css/lib/all.min.css">
   <!-- Aplayer -->
-  <link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-y/aplayer/1.10.1/APlayer.min.css"
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-y/aplayer/1.10.1/APlayer.min.js" crossorigin="anonymous"
-    referrerpolicy="no-referrer"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2WVH35V11W"></script>
-  <!-- <script src="./js/Meting.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+  <link rel="stylesheet" href="./css/lib/APlayer.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="./js/lib/APlayer.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script async src="./js/lib/gtag.js"></script>
   <!-- IE Out -->
   <script>
     if ( /*@cc_on!@*/ (!!window.MSInputMethodContext && !!document.documentMode)) {
@@ -60,20 +55,6 @@
     gtag('js', new Date());
     gtag('config', 'G-2WVH35V11W');
   </script>
-  <!-- PWA -->
-  <!-- <script>
-      function loadJson() {
-        let xhr = new XMLHttpRequest();
-        xhr.overrideMimeType('application/json');
-        xhr.open('GET', './config/manifest.json', true);
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-            let data = JSON.parse(xhr.responseText);
-          }
-        }
-        xhr.send();
-      }
-    </script> -->
 </head>
 
 <body>
@@ -373,6 +354,7 @@
               </div>
             </div>
           </div>
+        </div>
       </main>
       <!-- 版权信息 -->
       <footer id="footer" class="fixed-bottom footer">
@@ -406,16 +388,14 @@
   </noscript>
   <!-- JS -->
   <script type="text/javascript" src="./js/vue/vue.min.js"></script>
-  <script type="text/javascript" src="./js/js.cookie.js"></script>
+  <script type="text/javascript" src="js/lib/js.cookie.js"></script>
   <script type="text/javascript" src="./js/main.js"></script>
   <script type="text/javascript" src="./js/set.js"></script>
   <script type="text/javascript" src="./js/time.js"></script>
-  <script type="text/javascript"
-    src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-y/bootstrap/5.1.0/js/bootstrap.min.js"></script>
-
+  <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
 </body>
 <script type="text/javascript">
-  var vm = new Vue({
+  new Vue({
     el: '#app',
     data: {
       Config: {},
@@ -444,7 +424,6 @@
       })
     },
     methods: {
-
     }
   })
 </script>
