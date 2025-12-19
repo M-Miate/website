@@ -37,8 +37,6 @@ $(document).ready(async function () {
 
   console.log(`音乐播放器配置: server=${server}, type=${type}, id=${id}`);
 
-
-
   /* 打开音乐列表 */
   $('#music-open').on('click', () => {
     if ($(document).width() >= 990) {
