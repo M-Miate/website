@@ -1,8 +1,23 @@
-$(document).ready(function () {
+$(document).ready(async function () {
   /*
   author: Miate
 */
-  let Config = JSON.parse(localStorage.getItem('config'))
+  let Config = null;
+
+  try {
+    // 使用安全配置加载器
+    const loader = new SecureConfigLoader();
+    Config = await loader.loadConfig('./config/setting.json');
+  } catch (error) {
+    // 降级到 localStorage 读取
+    const localConfig = localStorage.getItem('config');
+    if (localConfig) {
+      Config = JSON.parse(localConfig);
+    } else {
+      console.error('main.js 配置加载失败');
+      return;
+    }
+  }
 
   now = new Date(), hour = now.getHours();
   let hello = 'hello'
@@ -64,10 +79,22 @@ $(document).ready(function () {
 
   // 获取一言
   function getHitokoto() {
+    // 检查配置是否存在
+    if (!Config || !Config.hitokoto || !Config.hitokoto.hitokotoUrl) {
+      console.warn('一言配置缺失，使用默认 URL');
+      $('#hitokoto-text').html('生活就是如此的简单！');
+      $('#from-text').html('一一');
+      return;
+    }
+
     fetch(`${Config.hitokoto.hitokotoUrl}`).then(res => res.json()).then(data => {
-      $('#hitokoto-text').html(data.hitokoto)
-      $('#from-text').html(data.from)
-    }).catch(console.error);
+      $('#hitokoto-text').html(data.hitokoto || '生活就是如此的简单！');
+      $('#from-text').html(data.from || '一一');
+    }).catch(error => {
+      console.error('一言加载失败:', error);
+      $('#hitokoto-text').html('生活就是如此的简单！');
+      $('#from-text').html('一一');
+    });
   }
 
 
@@ -148,10 +175,20 @@ $(document).ready(function () {
 
   // 获取天气
   //请前往 https://www.mxnzp.com/doc/list 申请 app_id 和 app_secret
-  const app_id = Config.weather.app_id  // app_id
-  const app_secret = Config.weather.app_secret  // app_secret
-
   function getWeather() {
+    // 检查配置是否存在
+    if (!Config || !Config.weather || !Config.weather.app_id || !Config.weather.app_secret) {
+      console.warn('天气配置缺失或未解密');
+      $('#wea_text').html('配置错误');
+      $('#tem_text').html("&nbsp;");
+      $('#win_text').html('请检查');
+      $('#win_speed').html('配置');
+      return;
+    }
+
+    const app_id = Config.weather.app_id  // app_id
+    const app_secret = Config.weather.app_secret  // app_secret
+
     fetch(`https://www.mxnzp.com/api/ip/self?app_id=${app_id}&app_secret=${app_secret}`).then(res => res.json()).then(data => {
       let city = data.data.city
       setTimeout(() => {
@@ -387,17 +424,19 @@ $(document).ready(function () {
 
   //控制台输出
   //console.clear();
-  let styleTitle = `
-    font-size: 20px;
-    font-weight: 600;
-    color: rgb(244,167,89);
-    `
-  let styleContent = `
-    color: rgb(30,152,255);
-    `
-  let title = Config.title
-  let content = `
-    Github:  ${Config.github}
-    `
-  console.log(`%c${title} %c${content}`, styleTitle, styleContent)
+  if (Config) {
+    let styleTitle = `
+      font-size: 20px;
+      font-weight: 600;
+      color: rgb(244,167,89);
+      `
+    let styleContent = `
+      color: rgb(30,152,255);
+      `
+    let title = Config.title || 'Miateの主页'
+    let content = `
+      Github:  ${Config.github || 'https://github.com/M-Miate'}
+      `
+    console.log(`%c${title} %c${content}`, styleTitle, styleContent)
+  }
 })

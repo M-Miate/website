@@ -308,7 +308,7 @@
                           <div class="wallpaper" id="wallpaper">
                             <div class="form-radio" v-for="item in Config.wallpapers">
                               <input type="radio" class="set-wallpaper" style="display: none;" :id="item.id"
-                                :value="item.value" name="wallpaper-type">
+                                :value="item.value" name="wallpaper-type" />
                               <label :for="item.for">{{ item.text }}</label>
                             </div>
                           </div>
@@ -389,6 +389,7 @@
   <!-- JS -->
   <script type="text/javascript" src="./js/vue/vue.min.js"></script>
   <script type="text/javascript" src="js/lib/js.cookie.js"></script>
+  <script type="text/javascript" src="./js/config-loader.js"></script>
   <script type="text/javascript" src="./js/main.js"></script>
   <script type="text/javascript" src="./js/set.js"></script>
   <script type="text/javascript" src="./js/time.js"></script>
@@ -401,27 +402,45 @@
       Config: {},
       music: {}
     },
-    created() {
-      let url = './config/setting.json'
-      $.getJSON(url, (data) => {
-        this.Config = data
-        if (JSON.parse(localStorage.getItem('config')) !== this.Config) {
-          localStorage.setItem('config', JSON.stringify(this.Config))
-        }
-        // 页头数据
-        $('title').text(data.title);
-        $('#loading-title').text(data.title);
-        $('meta[name="description"]').attr('content', data.description);
-        $('meta[name="keywords"]').attr('content', data.keywords);
-        $('meta[name="author"]').attr('content', data.author);
+    async created() {
+      try {
+        // 使用安全配置加载器
+        const loader = new SecureConfigLoader();
+        this.Config = await loader.loadConfig('./config/setting.json');
 
-        // 音乐播放器
+        // 检查解密状态
+        const status = loader.getDecryptionStatus(this.Config);
+        if (!status.isFullyDecrypted) {
+          console.warn('配置中存在未解密字段:', status.encryptedFields);
+          console.warn('请确保已设置正确的加密密钥');
+        } else {
+          console.log('✅ 配置完全解密，所有功能可用');
+        }
+      } catch (error) {
+        console.error('❌ 配置加载失败:', error);
+        // 降级到原始加载方式
+        let url = './config/setting.json'
+        $.getJSON(url, (data) => {
+          this.Config = data
+          console.warn('🔄 使用降级模式加载配置');
+        });
+      }
+
+      // 页头数据
+      $('title').text(this.Config.title);
+      $('#loading-title').text(this.Config.title);
+      $('meta[name="description"]').attr('content', this.Config.description);
+      $('meta[name="keywords"]').attr('content', this.Config.keywords);
+      $('meta[name="author"]').attr('content', this.Config.author);
+
+      // 音乐播放器
+      if (this.Config.music) {
         this.music.server = this.Config.music.musicServer
         this.music.type = this.Config.music.musicType
         this.music.playlist = this.Config.music.musicPlaylist
         this.music.autoplay = this.Config.music.musicAutoplay
         this.music.loop = this.Config.music.musicLoop
-      })
+      }
     },
     methods: {
     }

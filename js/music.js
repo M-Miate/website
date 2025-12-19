@@ -7,12 +7,35 @@
   author: Miate
 */
 
-$(document).ready(function () {
-  let Config = JSON.parse(localStorage.getItem('config'));
+$(document).ready(async function () {
+  let Config = null;
+
+  try {
+    // 使用安全配置加载器
+    const loader = new SecureConfigLoader();
+    Config = await loader.loadConfig('./config/setting.json');
+  } catch (error) {
+    // 降级到 localStorage 读取
+    const localConfig = localStorage.getItem('config');
+    if (localConfig) {
+      Config = JSON.parse(localConfig);
+    } else {
+      console.error('music.js 配置加载失败');
+      return;
+    }
+  }
+
+  // 检查音乐配置
+  if (!Config || !Config.music) {
+    console.error('音乐配置缺失');
+    return;
+  }
 
   let server = Config.music.musicServer;  // netease: 网易云音乐; tencent: QQ音乐; kugou: 酷狗音乐; xiami: 虾米; kuwo: 酷我
   let type = Config.music.musicType;  // song: 单曲; playlist: 歌单; album: 唱片
   let id = Config.music.musicPlaylist;  // 封面 ID / 单曲 ID / 歌单 ID
+
+  console.log(`音乐播放器配置: server=${server}, type=${type}, id=${id}`);
 
 
 
@@ -41,6 +64,13 @@ $(document).ready(function () {
     type: 'GET',
     dataType: 'json',
     success: function (data) {
+      if (!data || data.length === 0) {
+        console.error('音乐数据为空');
+        $('#aplayer').html('<div style="text-align: center; padding: 20px;">音乐加载失败，请检查配置</div>');
+        return;
+      }
+
+      console.log(`音乐数据加载成功，共 ${data.length} 首歌曲`);
       const ap = new APlayer({
         container: document.getElementById('aplayer'),
         order: 'random',  // 播放模式：list 列表模式， random 随机播放
@@ -144,14 +174,17 @@ $(document).ready(function () {
 
     },
     error: function (error) {
+      console.error('音乐 API 请求失败:', error);
+      $('#aplayer').html('<div style="text-align: center; padding: 20px;">音乐加载失败，请检查网络连接</div>');
+
       setTimeout(() => {
-        iziToast.info({
+        iziToast.show({
           timeout: 8000,
           icon: "fa-solid fa-circle-exclamation",
           displayMode: 'replace',
-          message: '音乐播放器加载失败'
+          message: '音乐播放器加载失败，请检查网络连接或配置'
         });
-      }, 4000);
+      }, 1000);
     }
   })
 })
