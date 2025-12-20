@@ -54,8 +54,7 @@ class ConfigEncryptor {
         // 导航到目标字段
         for (let i = 0; i < keys.length - 1; i++) {
           if (!current[keys[i]]) {
-            console.log(`跳过字段 ${fieldPath}: 路径不存在`);
-            return;
+                        return;
           }
           current = current[keys[i]];
         }
@@ -89,19 +88,16 @@ class ConfigEncryptor {
               keyLength: 256
             };
 
-            console.log(`已加密字段: ${fieldPath}`);
-          } catch (fieldError) {
+                      } catch (fieldError) {
             console.error(`加密字段 ${fieldPath} 失败:`, fieldError.message);
           }
         } else {
-          console.log(`跳过字段 ${fieldPath}: 值为空或不存在`);
-        }
+                  }
       });
 
       // 写入 JSON 文件
       fs.writeFileSync(outputPath, JSON.stringify(encryptedConfig, null, 2));
-      console.log(`加密配置已保存到: ${outputPath}`);
-
+      
     } catch (error) {
       console.error('加密失败:', error.message);
       console.error('堆栈:', error.stack);
@@ -147,8 +143,7 @@ class ConfigEncryptor {
             decrypted += decipher.final('utf8');
 
             current[lastKey] = decrypted;
-            console.log(`✅ 已解密字段: ${fieldPath}`);
-          } catch (decryptError) {
+                      } catch (decryptError) {
             console.error(`❌ 解密字段 ${fieldPath} 失败:`, decryptError.message);
           }
         }
@@ -238,7 +233,6 @@ if (require.main === module) {
 
     case 'test':
       console.log('✅ 加密密钥验证通过');
-      console.log('密钥长度:', encryptor.key.length, '字节');
       break;
 
     default:

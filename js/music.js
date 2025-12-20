@@ -35,8 +35,7 @@ $(document).ready(async function () {
   let type = Config.music.musicType;  // song: 单曲; playlist: 歌单; album: 唱片
   let id = Config.music.musicPlaylist;  // 封面 ID / 单曲 ID / 歌单 ID
 
-  console.log(`音乐播放器配置: server=${server}, type=${type}, id=${id}`);
-
+  
   /* 打开音乐列表 */
   $('#music-open').on('click', () => {
     if ($(document).width() >= 990) {
@@ -68,8 +67,7 @@ $(document).ready(async function () {
         return;
       }
 
-      console.log(`音乐数据加载成功，共 ${data.length} 首歌曲`);
-      const ap = new APlayer({
+            const ap = new APlayer({
         container: document.getElementById('aplayer'),
         order: 'random',  // 播放模式：list 列表模式， random 随机播放
         preload: 'auto',  // 自动预加载歌曲

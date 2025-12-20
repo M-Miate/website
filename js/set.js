@@ -72,7 +72,6 @@ $(document).ready(function () {
         break;
       case "4":
         jqAjax(bg_img_preinstall[4], 'GET').then((res) => {
-          console.log(res);
           if (res.code === 0 && res.message === 'success') {
             $('#bg').attr('src', res.data.src.bigSrc); // 必应
           }

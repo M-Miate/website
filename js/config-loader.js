@@ -17,13 +17,11 @@ class SecureConfigLoader {
   getEncryptionKey() {
     // 1. 优先使用 GitHub Actions 注入的全局密钥
     if (typeof window !== 'undefined' && window.CONFIG_ENCRYPTION_KEY) {
-      console.log('🔑 使用 GitHub Actions 注入的加密密钥');
       return window.CONFIG_ENCRYPTION_KEY;
     }
 
     // 2. 尝试从环境变量获取（仅服务端）
     if (typeof process !== 'undefined' && process.env.CONFIG_ENCRYPTION_KEY) {
-      console.log('🔑 使用环境变量加密密钥');
       return process.env.CONFIG_ENCRYPTION_KEY;
     }
 
@@ -31,7 +29,6 @@ class SecureConfigLoader {
     if (typeof sessionStorage !== 'undefined') {
       const sessionKey = sessionStorage.getItem('config_encryption_key');
       if (sessionKey) {
-        console.log('🔑 使用 sessionStorage 加密密钥');
         return sessionKey;
       }
     }
@@ -180,7 +177,6 @@ class SecureConfigLoader {
       );
 
       const result = new TextDecoder().decode(decrypted);
-      console.log('✅ 字段解密成功（使用 AAD 认证）');
       return result;
 
     } catch (error) {
@@ -240,12 +236,10 @@ class SecureConfigLoader {
 
       if (sessionConfig && sessionTimestamp && (now - parseInt(sessionTimestamp)) < 1800000) { // 30分钟会话缓存
         const config = JSON.parse(sessionConfig);
-        console.log('✅ 使用会话缓存配置');
         return config;
       }
 
       // 从服务器加载最新配置
-      console.log('🌐 从服务器加载最新配置...');
       const response = await fetch(configUrl);
 
       if (!response.ok) {
@@ -260,15 +254,12 @@ class SecureConfigLoader {
 
       // 检查配置是否有更新
       if (lastVersion && lastVersion === currentVersion) {
-        console.log('📋 配置未更新，检查缓存...');
-
         // 配置未更新，检查是否有有效的长期缓存
         const cachedConfig = sessionStorage.getItem(this.cacheKey);
         const cacheTimestamp = sessionStorage.getItem('config_timestamp');
 
         if (cachedConfig && cacheTimestamp && (now - parseInt(cacheTimestamp)) < 3600000) { // 1小时长期缓存
           const config = JSON.parse(cachedConfig);
-          console.log('✅ 使用长期缓存配置（配置未更新）');
 
           // 同时更新 sessionStorage
           sessionStorage.setItem(this.sessionCacheKey, JSON.stringify(config));
@@ -277,7 +268,6 @@ class SecureConfigLoader {
           return config;
         }
       } else {
-        console.log('🔄 检测到配置更新，重新处理');
         // 更新版本号
         sessionStorage.setItem(this.versionCacheKey, currentVersion);
       }
@@ -289,11 +279,9 @@ class SecureConfigLoader {
       if (encryptionKey) {
         // 解密配置
         finalConfig = await this.decryptConfigRecursive(rawConfig, encryptionKey);
-        console.log('✅ 配置加载并解密完成');
       } else {
         // 保留原始配置（包含加密字段）
         finalConfig = rawConfig;
-        console.log('⚠️ 配置加载完成（部分字段未解密，需要加密密钥）');
       }
 
       // 更新所有缓存
@@ -302,7 +290,6 @@ class SecureConfigLoader {
       sessionStorage.setItem(this.sessionCacheKey, JSON.stringify(finalConfig));
       sessionStorage.setItem('config_session_timestamp', now.toString());
 
-      console.log('💾 配置已缓存到 sessionStorage 和 sessionStorage');
       return finalConfig;
 
     } catch (error) {
@@ -314,13 +301,11 @@ class SecureConfigLoader {
       // 优先使用 sessionStorage 缓存（最新）
       const sessionConfig = sessionStorage.getItem(this.sessionCacheKey);
       if (sessionConfig) {
-        console.log('🔄 使用 sessionStorage 缓存作为备用');
         fallbackConfig = JSON.parse(sessionConfig);
       } else {
         // 其次使用 sessionStorage 缓存
         const localConfig = sessionStorage.getItem(this.cacheKey);
         if (localConfig) {
-          console.log('🔄 使用 sessionStorage 缓存作为备用');
           fallbackConfig = JSON.parse(localConfig);
         }
       }
